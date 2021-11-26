@@ -1,4 +1,5 @@
-const jwt = require('../utils/jwt');
+// const jwt = require('../utils/jwt');
+const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { JWT_SECRET } = require('../constants');
 
@@ -23,6 +24,8 @@ exports.login = async ({ email, password }) => {
     }
 
     let token = jwt.sign(payload, JWT_SECRET);
+    console.log(token)
+    console.log(user)
 
     return { user, token };
 }

@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: [true, 'Email is required!'],
-        // unique: true,
+        unique: true,
         // validate: [/^[a-zA-Z0-9]+$/, 'Email should consist english letters and digits only!'],
         validate: [validator.isEmail, 'Email shout be real email'],
         maxlength: 20,
@@ -23,6 +23,8 @@ const userSchema = new mongoose.Schema({
         required: [true, 'password is required!'],
         validate: [validator.isStrongPassword, 'Password shoult be strongest!!! (min: 8 characters, min 1 lower letter, min 1 upper letter, min 1 number and min 1 symbol'],
     },
+}, {
+    timestamps: true
 });
 
 userSchema.pre('save', function (next) {

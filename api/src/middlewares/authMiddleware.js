@@ -3,14 +3,14 @@ const jwt = require('../utils/jwt');
 
 exports.auth = function (req, res, next) {
     let token = req.headers['x-authorization'];
-
+    console.log(token);
     if (token) {
         let decodedToken = jwt.verify(token, JWT_SECRET)
         if (decodedToken) {
             req.user = decodedToken;
             next();
         } else {
-            res.status(401).json('You are nont autorized');
+            res.status(401).json('You are not autorized');
         }
     } else {
         next();
