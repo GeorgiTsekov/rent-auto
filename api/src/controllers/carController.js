@@ -1,7 +1,6 @@
 const router = require('express').Router();
 
 const carService = require('../services/carService');
-const { isGuest, isAuth } = require('../middlewares/authMiddleware');
 
 router.get('/', async (req, res) => {
     const cars = await carService.getAll();
@@ -13,8 +12,18 @@ router.get('/:carId', async (req, res) => {
     res.json(car);
 });
 
-router.post('/create', isAuth, async (req, res) => {
-    await carService.create({ ...req.body, ownerId: req.user._id });
+router.put('/:carId', async (req, res) => {
+    const car = await carService.update(req.params.carId, req.body);
+    res.json({ ok: true })
+});
+
+router.delete('/:carId', async (req, res) => {
+    await carService.delete(req.params.carId);
+    res.json({ ok: true })
+});
+
+router.post('/create', async (req, res) => {
+    await carService.create(req.body);
 
     res.json({ ok: true })
 });

@@ -1,9 +1,10 @@
 const { JWT_SECRET } = require('../constants');
-const jwt = require('../utils/jwt');
+const jwt = require('jsonwebtoken');
+// const jwt = require('../utils/jwt');
+
 
 exports.auth = function (req, res, next) {
     let token = req.headers['x-authorization'];
-    console.log(token);
     if (token) {
         let decodedToken = jwt.verify(token, JWT_SECRET)
         if (decodedToken) {

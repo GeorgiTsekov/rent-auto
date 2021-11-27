@@ -53,11 +53,6 @@ const carSchema = new mongoose.Schema({
     airConditioner: {
         type: Boolean,
     },
-    ownerId: {
-        type: mongoose.Types.ObjectId,
-        ref: 'User',
-        required: true,
-    },
     tenant: {
         type: mongoose.Types.ObjectId,
         ref: 'User',

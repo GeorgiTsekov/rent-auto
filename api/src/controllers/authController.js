@@ -6,7 +6,7 @@ const { isGuest, isAuth } = require('../middlewares/authMiddleware');
 router.post('/login', isGuest, async (req, res, next) => {
     const { email, password } = req.body;
     let { user, token } = await authService.login({ email, password });
-    console.log(token)
+
     try {
         res.json({
             _id: user._id,
