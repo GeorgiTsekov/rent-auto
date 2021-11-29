@@ -1,20 +1,26 @@
-// const jwt = require('../utils/jwt');
+const { jwtSign } = require('../utils/jwt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
 const { JWT_SECRET } = require('../constants');
 
-exports.register = ({ name, email, password }) => User.create({ name, email, password });
+exports.register = ({ name, email, password, rePassword }) => {
+    if (password !== rePassword) {
+        throw { message: 'Password must be equal to Re-Password' }
+    }
+
+    return User.create({ name, email, password });
+};
 
 exports.login = async ({ email, password }) => {
     let user = await User.findByEmail(email);
     if (!user) {
-        throw new Error('invalid email or password!');
+        throw { message: 'Invalid email or password!' }
     }
 
     let isValid = await user.validatePassword(password);
 
     if (!isValid) {
-        throw new Error('invalid email or password!');
+        throw { message: 'Invalid email or password!' }
     }
 
     let payload = {
@@ -23,9 +29,19 @@ exports.login = async ({ email, password }) => {
         email: user.email,
     }
 
-    let token = jwt.sign(payload, JWT_SECRET);
-    console.log(token)
-    console.log(user)
+    let accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
+    console.log(accessToken);
+    console.log(user);
 
-    return { user, token };
+    return { user, accessToken };
 }
+
+exports.createToken = function (user) {
+    let payload = {
+        _id: user._id,
+        name: user.name,
+        email: user.email,
+    }
+
+    return jwtSign(payload, JWT_SECRET);
+};

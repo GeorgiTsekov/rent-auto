@@ -9,6 +9,6 @@ router.use('/auth', authController);
 // router.use('*', (req, res) => {
 //     res.status(404).render('404');
 // });
-router.use('/mobile/cars', carController);
+router.use('/mobile/car', carController);
 
 module.exports = router;

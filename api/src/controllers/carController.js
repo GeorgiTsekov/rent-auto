@@ -1,31 +1,33 @@
 const router = require('express').Router();
 
 const carService = require('../services/carService');
+const { auth } = require('../middlewares/authMiddleware');
 
-router.get('/', async (req, res) => {
+router.get('/all', async (req, res) => {
     const cars = await carService.getAll();
     res.json(cars);
 });
 
 router.get('/:carId', async (req, res) => {
     const car = await carService.getOne(req.params.carId);
-    res.json(car);
+    res.status(200).json(car);
 });
 
-router.put('/:carId', async (req, res) => {
+router.patch('/:carId', async (req, res) => {
     const car = await carService.update(req.params.carId, req.body);
-    res.json({ ok: true })
+
+    res.status(200).json({ message: `Car ${car.make} is successfully updated` });
 });
 
 router.delete('/:carId', async (req, res) => {
     await carService.delete(req.params.carId);
-    res.json({ ok: true })
+    res.status(200).json({ message: "Car is successfully deleted" });
 });
 
-router.post('/create', async (req, res) => {
-    await carService.create(req.body);
+router.post('/create', auth, async (req, res) => {
+    const car = await carService.create(req.body);
 
-    res.json({ ok: true })
+    res.status(201).json({ message: `Car ${car.make} is successfully created` });
 });
 
 module.exports = router;

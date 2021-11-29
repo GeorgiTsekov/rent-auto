@@ -1,55 +1,51 @@
 const router = require('express').Router();
 
 const authService = require('../services/authService');
-const { isGuest, isAuth } = require('../middlewares/authMiddleware');
+const { auth } = require('../middlewares/authMiddleware');
 
-router.post('/login', isGuest, async (req, res, next) => {
+router.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
-    let { user, token } = await authService.login({ email, password });
 
     try {
+        const { user, accessToken } = await authService.login({ email, password });
+
         res.json({
             _id: user._id,
             name: user.name,
             email,
-            accessToken: token
+            accessToken
         });
     } catch (error) {
         next(error);
     }
 });
 
-router.post('/register', isGuest, async (req, res, next) => {
+router.post('/register', async (req, res, next) => {
     const { name, email, password, rePassword } = req.body;
-
-    if (password !== rePassword) {
-        res.locals.error = 'Password missmatch';
-
-        return res.render('auth/register');
-    }
 
     try {
         await authService.register({
             name,
             email,
-            password
+            password,
+            rePassword
         });
 
-        let { user, token } = await authService.login({ email, password });
+        let { user, accessToken } = await authService.login({ email, password });
 
         // res.header("Authorization", token).send(user);
         res.json({
             _id: user._id,
             name: user.name,
             email: user.email,
-            accessToken: token
+            accessToken
         });
     } catch (error) {
         next(error);
     }
 });
 
-router.get('/logout', isAuth, (req, res) => {
+router.get('/logout', auth, (req, res) => {
     res.json({ ok: true });
 });
 
