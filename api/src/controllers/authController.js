@@ -8,7 +8,6 @@ router.post('/login', async (req, res, next) => {
 
     try {
         const { user, accessToken } = await authService.login({ email, password });
-
         res.json({
             _id: user._id,
             name: user.name,
@@ -46,7 +45,7 @@ router.post('/register', async (req, res, next) => {
 });
 
 router.get('/logout', auth, (req, res) => {
-    res.json({ ok: true });
+    res.status(200).json({ message: 'This User is successfully logouted' });
 });
 
 module.exports = router;

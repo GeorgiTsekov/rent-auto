@@ -29,10 +29,8 @@ exports.login = async ({ email, password }) => {
         email: user.email,
     }
 
-    let accessToken = jwt.sign(payload, JWT_SECRET, { expiresIn: '1h' });
-    console.log(accessToken);
-    console.log(user);
-
+    let accessToken = jwt.sign(payload, JWT_SECRET);
+    // , { expiresIn: '1h' }
     return { user, accessToken };
 }
 

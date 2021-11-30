@@ -1,6 +1,7 @@
 const { JWT_SECRET } = require('../constants');
 const jwt = require('jsonwebtoken');
 // const jwt = require('../utils/jwt');
+const User = require('../models/User');
 
 
 exports.auth = function (req, res, next) {
@@ -12,13 +13,27 @@ exports.auth = function (req, res, next) {
         });
     }
 
-    console.log(authHeader)
     const token = authHeader.split(' ')[1];
-    console.log("Token", token)
-
+    // console.log("Token", token)
+    function verifyToken(token) {
+        return new Promise((resolve, reject) => {
+            jwt.verify(token, JWT_SECRET, (err, data) => {
+                if (err) { reject(err); return; }
+                resolve(data);
+            });
+        });
+    }
     try {
-        jwt.verify(token, JWT_SECRET);
-        next();
+        verifyToken(token).then(data => {
+            User.findById(data._id)
+                .then((user) => {
+                    req.user = user;
+
+                    next();
+                }).catch(err => {
+                    next(err);
+                });
+        });
     } catch (error) {
         return res.status(401).send({
             message: "You are not allowed to do this"
