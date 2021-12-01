@@ -31,7 +31,6 @@ exports.addTenant = async (carId, userId, data) => {
                 || (to >= dateFrom && to <= dateTo)) {
                 throw { message: `This dates: from ${dateFrom} to ${dateTo} are saved from another tenant` }
             }
-
         });
     }
 
