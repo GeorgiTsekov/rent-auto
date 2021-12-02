@@ -13871,7 +13871,6 @@ textarea.form-control {
 }
 
 #ftco-loader {
-  position: fixed;
   width: 96px;
   height: 96px;
   left: 50%;
@@ -13897,9 +13896,6 @@ textarea.form-control {
   top: 0;
   width: 100%;
   height: 100%;
-  -webkit-transform: none;
-  -ms-transform: none;
-  transform: none;
   background-color: #fff;
   border-radius: 0;
   -webkit-box-shadow: none;
