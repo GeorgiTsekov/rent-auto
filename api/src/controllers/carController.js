@@ -21,7 +21,7 @@ router.get('/:carId', async (req, res, next) => {
     }
 });
 
-router.patch('/:carId/edit', async (req, res, next) => {
+router.patch('/:carId/edit', auth, async (req, res, next) => {
     try {
         const car = await carService.update(req.params.carId, req.body);
 
@@ -41,7 +41,7 @@ router.patch('/:carId/addTenant', auth, async (req, res, next) => {
     }
 });
 
-router.delete('/:carId/delete', async (req, res, next) => {
+router.delete('/:carId/delete', auth, async (req, res, next) => {
     try {
         await carService.delete(req.params.carId);
         res.status(200).json({ message: "Car is successfully deleted" });
