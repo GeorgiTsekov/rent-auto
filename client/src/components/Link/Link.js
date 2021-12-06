@@ -1,11 +1,12 @@
 import React from "react";
+import { Link } from 'react-router-dom';
 
 const LinkComponent = ({ title, href, type }) => {
     return (
         <li data-test-id={`link-${title}`} className={`${type}-item`}>
-            <a href={href} className={`${type}-link`}>
+            <Link to={href} className={`${type}-link`}>
                 {title}
-            </a>
+            </Link>
         </li>
     )
 }

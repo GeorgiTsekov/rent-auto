@@ -2,7 +2,24 @@ import React from "react";
 
 import LinkComponent from "../Link/Link";
 
-const Header = () => {
+const Header = ({
+    isAuthenticated,
+    email
+}) => {
+    let guestNavigation = (
+        <ul className="navbar-nav ml-auto">
+            <LinkComponent href="/login" title="Login" type="nav" />
+            <LinkComponent href="/register" title="Register" type="nav" />
+        </ul>
+    )
+
+    let userNavigation = (
+        <ul className="navbar-nav ml-auto">
+            <LinkComponent href="/rentACar" title="Rent a Car" type="nav" />
+            <LinkComponent href="/logout" title="Logout" type="nav" />
+        </ul>
+    )
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
             <div className="container">
@@ -13,17 +30,15 @@ const Header = () => {
 
                 <div className="collapse navbar-collapse" id="ftco-nav">
                     <ul className="navbar-nav ml-auto">
-                        <LinkComponent href="/#" title="Home" type="nav" />
-                        <LinkComponent href="/#" title="About" type="nav" />
-                        <LinkComponent href="/#" title="Services" type="nav" />
-                        <LinkComponent href="/#" title="Pricing" type="nav" />
-                        <LinkComponent href="/#" title="Cars" type="nav" />
-                        <LinkComponent href="/#" title="Blog" type="nav" />
-                        <LinkComponent href="/#" title="Contact" type="nav" />
+                        <LinkComponent href="/" title="Home" type="nav" />
+                        <LinkComponent href="/about" title="About" type="nav" />
+                        <LinkComponent href="/cars" title="Cars" type="nav" />
                     </ul>
+                    {isAuthenticated ? userNavigation : guestNavigation}
+
                 </div>
             </div>
-        </nav>
+        </nav >
     )
 };
 
