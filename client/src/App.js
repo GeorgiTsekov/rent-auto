@@ -43,7 +43,7 @@ function App() {
           <Route path="/" element={<Main />} />
           <Route path="/login" element={<Login onLogin={onLogin} />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/cars" element={<Cars />} />
+          <Route path="/car" element={<Cars />} />
           <Route path="/carDetails" element={<CarDetails />} />
           <Route path="/createCar" element={<CreateCar />} />
           <Route path="/about" element={<About />} />

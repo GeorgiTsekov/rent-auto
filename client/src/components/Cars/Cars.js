@@ -36,13 +36,16 @@ const Cars = () => {
 
             <section className="ftco-section bg-light">
                 <div className="container">
-                    <div className="row">
-                        {
-                            cars.map((x) => <Car key={x._id} car={x} />)
-                        }
+                    if ({cars.length > 0}) {
+                        <div className="row">
+                            {
+                                cars.map((x) => <Car key={x._id} car={x} />)
+                            }
+                        </div>
+                    } else {
+                        <p>No cars in data base</p>
+                    }
 
-
-                    </div>
                     <div className="row mt-5">
                         <div className="col text-center">
                             <div className="block-27">

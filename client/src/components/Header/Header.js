@@ -18,6 +18,7 @@ const Header = ({
         <ul className="navbar-nav ml-auto">
             <LinkComponent href="/profile" title={`Welcome, ${user}`} type="nav" />
             <LinkComponent href="/rentACar" title="Rent a Car" type="nav" />
+            <LinkComponent href="/createCar" title="Create a Car" type="nav" />
             <LinkComponent href="/logout" title="Logout" type="nav" />
         </ul>
     )
@@ -34,7 +35,7 @@ const Header = ({
                     <ul className="navbar-nav ml-auto">
                         <LinkComponent href="/" title="Home" type="nav" />
                         <LinkComponent href="/about" title="About" type="nav" />
-                        <LinkComponent href="/cars" title="Cars" type="nav" />
+                        <LinkComponent href="/car" title="All Cars" type="nav" />
                     </ul>
                     {isAuthenticated ? userNavigation : guestNavigation}
 
