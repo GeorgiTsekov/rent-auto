@@ -10,20 +10,20 @@ class RentACar extends Component {
                         <form action="/#" className="request-form bg-primary">
                             <h2>Make your trip</h2>
                             <div className="form-group">
-                                <label for="" className="label">Pick-up location</label>
+                                <label htmlFor="" className="label">Pick-up location</label>
                                 <input type="text" className="form-control" placeholder="City, Airport, Station, etc" />
                             </div>
                             <div className="form-group">
-                                <label for="" className="label">Drop-off location</label>
+                                <label htmlFor="" className="label">Drop-off location</label>
                                 <input type="text" className="form-control" placeholder="City, Airport, Station, etc" />
                             </div>
                             <div className="d-flex">
                                 <div className="form-group mr-2">
-                                    <label for="" className="label">Pick-up date</label>
+                                    <label htmlFor="" className="label">Pick-up date</label>
                                     <input type="text" className="form-control" id="book_pick_date" placeholder="Date" />
                                 </div>
                                 <div className="form-group ml-2">
-                                    <label for="" className="label">Drop-off date</label>
+                                    <label htmlFor="" className="label">Drop-off date</label>
                                     <input type="text" className="form-control" id="book_off_date" placeholder="Date" />
                                 </div>
                             </div>
