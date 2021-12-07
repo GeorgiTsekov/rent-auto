@@ -23,8 +23,13 @@ router.get('/:carId', async (req, res, next) => {
 
 router.patch('/:carId/edit', auth, async (req, res, next) => {
     try {
-        const car = await carService.update(req.params.carId, req.body);
+        const car = await carService.getOne(req.params.carId);
 
+        if (car.creator.toJSON() !== req.user._id.toJSON()) {
+            throw { message: 'You are not authorized to edit this car!' }
+        }
+
+        await carService.update(req.params.carId, req.body);
         res.status(200).json({ message: `Car ${car.make} is successfully updated` });
     } catch (error) {
         next(error);
@@ -43,6 +48,14 @@ router.patch('/:carId/addTenant', auth, async (req, res, next) => {
 
 router.delete('/:carId/delete', auth, async (req, res, next) => {
     try {
+        const car = await carService.getOne(req.params.carId);
+        if (car === null) {
+            throw { message: 'This car is not exist in data base!' }
+        }
+        if (car.creator.toJSON() !== req.user._id.toJSON()) {
+            throw { message: 'You are not authorized to delete this car!' }
+        }
+
         await carService.delete(req.params.carId);
         res.status(200).json({ message: "Car is successfully deleted" });
     } catch (error) {
@@ -51,8 +64,56 @@ router.delete('/:carId/delete', auth, async (req, res, next) => {
 });
 
 router.post('/create', auth, async (req, res, next) => {
+    const creator = req.user._id;
+    const {
+        make,
+        model,
+        type,
+        image,
+        fuel,
+        transmission,
+        description,
+        mileage,
+        seats,
+        doors,
+        luggage,
+        year,
+        childSeat,
+        gps,
+        music,
+        bluetooth,
+        onboardComputer,
+        audioInput,
+        remoteCentralLocking,
+        airConditioner,
+    } = req.body;
+
+    const carData = {
+        make,
+        model,
+        type,
+        image,
+        fuel,
+        transmission,
+        description,
+        mileage,
+        seats,
+        doors,
+        luggage,
+        year,
+        childSeat,
+        gps,
+        music,
+        bluetooth,
+        onboardComputer,
+        audioInput,
+        remoteCentralLocking,
+        airConditioner,
+        creator
+    }
+
     try {
-        const car = await carService.create(req.body);
+        const car = await carService.create(carData);
 
         res.status(201).json({ message: `Car ${car.make} is successfully created` });
     } catch (error) {

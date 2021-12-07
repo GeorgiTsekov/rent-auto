@@ -4,12 +4,12 @@ const validator = require('validator');
 const carSchema = new mongoose.Schema({
     make: {
         type: String,
-        required: [true, 'Make is required!'],
+        required: true,
         minlength: 2,
     },
     model: {
         type: String,
-        required: [true, 'Model is required!'],
+        required: true,
         minlength: 1,
     },
     type: {
@@ -21,11 +21,6 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true,
         validate: validator.isURL,
-    },
-    mileage: {
-        type: String,
-        required: true,
-        minlength: 1,
     },
     fuel: {
         type: String,
@@ -41,6 +36,11 @@ const carSchema = new mongoose.Schema({
         type: String,
         required: true,
         maxlength: 300,
+    },
+    mileage: {
+        type: Number,
+        required: true,
+        minlength: 1,
     },
     seats: {
         type: Number,
@@ -63,14 +63,8 @@ const carSchema = new mongoose.Schema({
     year: {
         type: Number,
         required: true,
-        min: 2001,
+        min: 1930,
         max: 2021,
-    },
-    PeriodicWave: {
-        type: Number,
-        required: true,
-        min: 1,
-        max: 500,
     },
     childSeat: {
         type: Boolean,
@@ -97,7 +91,7 @@ const carSchema = new mongoose.Schema({
         type: Boolean,
     },
     creator: {
-        type: ObjectId,
+        type: mongoose.Types.ObjectId,
         ref: "User",
         required: true
     },
