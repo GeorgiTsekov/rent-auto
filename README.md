@@ -1,2 +1,4 @@
 # rent-auto
-express server with mongoDb and React client
+api: server side(express server with mongoDb).
+Client: client side(React).
+This is a fullstack app for rent a cars.

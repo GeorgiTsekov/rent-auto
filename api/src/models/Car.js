@@ -40,7 +40,14 @@ const carSchema = new mongoose.Schema({
     mileage: {
         type: Number,
         required: true,
-        minlength: 1,
+        min: 1,
+        max: 1000000
+    },
+    price: {
+        type: Number,
+        required: true,
+        min: 1,
+        max: 1000
     },
     seats: {
         type: Number,
