@@ -1,12 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 
+import { AuthContext } from "../../contexts/AuthContext";
 import LinkComponent from "../Link/Link";
 
-const Header = ({
-    isAuthenticated,
-    user
-}) => {
-    console.log(user);
+const Header = () => {
+    const { user } = useContext(AuthContext);
+
     let guestNavigation = (
         <ul className="navbar-nav ml-auto">
             <LinkComponent href="/auth/login" title="Login" type="nav" />
@@ -16,7 +15,7 @@ const Header = ({
 
     let userNavigation = (
         <ul className="navbar-nav ml-auto">
-            <LinkComponent href="/auth/profile" title={`Welcome, ${user}`} type="nav" />
+            <LinkComponent href="/auth/profile" title={`Welcome, ${user.name}`} type="nav" />
             <LinkComponent href="/mobile/car/:carId/rent" title="Rent a Car" type="nav" />
             <LinkComponent href="/mobile/car/create" title="Create a Car" type="nav" />
             <LinkComponent href="/auth/logout" title="Logout" type="nav" />
@@ -37,8 +36,7 @@ const Header = ({
                         <LinkComponent href="/about" title="About" type="nav" />
                         <LinkComponent href="/mobile/car/all" title="All Cars" type="nav" />
                     </ul>
-                    {isAuthenticated ? userNavigation : guestNavigation}
-
+                    {user.name ? userNavigation : guestNavigation}
                 </div>
             </div>
         </nav >

@@ -1,9 +1,43 @@
-export const login = (email) => {
-    localStorage.setItem('email', email);
+const baseUrl = 'http://localhost:5000/auth';
+
+export const login = async (email, password) => {
+    let response = await fetch(`${baseUrl}/login`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password })
+    });
+
+    let jsonResult = await response.json();
+
+    if (response.ok) {
+        return jsonResult;
+    } else {
+        throw jsonResult.message;
+    }
+}
+
+export const register = async (name, email, password, rePassword) => {
+    let response = await fetch(`${baseUrl}/register`, {
+        method: "POST",
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ name, email, password, rePassword })
+    });
+
+    let jsonResult = await response.json();
+
+    if (response.ok) {
+        return jsonResult;
+    } else {
+        throw jsonResult.message;
+    }
 }
 
 export const logout = (email) => {
-    localStorage.removeItem('email')
+    // fetch(`${baseUrl}/logout`)
 }
 
 export const getUser = () => {

@@ -1,11 +1,11 @@
-import React from "react";
+import { useContext } from "react";
 import { useNavigate } from "react-router";
 
+import { AuthContext } from "../../contexts/AuthContext";
 import * as authService from '../../services/authService';
 
-const Login = ({
-    onLogin
-}) => {
+const Login = () => {
+    const { login } = useContext(AuthContext);
     const navigate = useNavigate();
 
     const onLoginHandler = (e) => {
@@ -14,10 +14,19 @@ const Login = ({
         let formData = new FormData(e.currentTarget);
 
         let email = formData.get('email');
+        let password = formData.get('password');
 
-        authService.login(email);
-        onLogin(email);
-        navigate.toString('/');
+        authService.login(email, password)
+            .then((authData) => {
+                login(authData);
+
+                navigate('/');
+            })
+            .catch(err => {
+                console.log(err);
+                // TODO show notification
+                alert(err)
+            })
     }
     return (
         <div className="hero-wrap" style={{ backgroundImage: "url(/images/bg_1.jpg)" }} data-stellar-background-ratio="0.5">
