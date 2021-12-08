@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 
 import * as carService from '../../services/carService';
-import Car from "../Car/Car";
+import Car from "./Car/Car";
 
 const Cars = () => {
     const [cars, setCars] = useState([]);
@@ -15,10 +15,10 @@ const Cars = () => {
     }, []);
     return (
         <div>
-            <section className="hero-wrap hero-wrap-2 js-fullheight" style={{ backgroundImage: "url(images/bg_3.jpg)" }} data-stellar-background-ratio="0.5">
+            <section className="hero-wrap hero-wrap-2" style={{ backgroundImage: "url(/images/bg_3.jpg)" }} data-stellar-background-ratio="0.5">
                 <div className="overlay"></div>
                 <div className="container">
-                    <div className="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
+                    <div className="row no-gutters slider-text align-items-end justify-content-start">
                         <div className="col-md-9">
                             <p className="breadcrumbs">
                                 <span className="mr-2">
@@ -36,16 +36,13 @@ const Cars = () => {
 
             <section className="ftco-section bg-light">
                 <div className="container">
-                    if ({cars.length > 0}) {
+                    {cars.length > 0 ? (
                         <div className="row">
                             {
                                 cars.map((x) => <Car key={x._id} car={x} />)
                             }
                         </div>
-                    } else {
-                        <p>No cars in data base</p>
-                    }
-
+                    ) : <p>no cars</p>}
                     <div className="row mt-5">
                         <div className="col text-center">
                             <div className="block-27">

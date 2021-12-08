@@ -9,17 +9,17 @@ const Header = ({
     console.log(user);
     let guestNavigation = (
         <ul className="navbar-nav ml-auto">
-            <LinkComponent href="/login" title="Login" type="nav" />
-            <LinkComponent href="/register" title="Register" type="nav" />
+            <LinkComponent href="/auth/login" title="Login" type="nav" />
+            <LinkComponent href="/auth/register" title="Register" type="nav" />
         </ul>
     )
 
     let userNavigation = (
         <ul className="navbar-nav ml-auto">
-            <LinkComponent href="/profile" title={`Welcome, ${user}`} type="nav" />
-            <LinkComponent href="/rentACar" title="Rent a Car" type="nav" />
-            <LinkComponent href="/createCar" title="Create a Car" type="nav" />
-            <LinkComponent href="/logout" title="Logout" type="nav" />
+            <LinkComponent href="/auth/profile" title={`Welcome, ${user}`} type="nav" />
+            <LinkComponent href="/mobile/car/:carId/rent" title="Rent a Car" type="nav" />
+            <LinkComponent href="/mobile/car/create" title="Create a Car" type="nav" />
+            <LinkComponent href="/auth/logout" title="Logout" type="nav" />
         </ul>
     )
 
@@ -35,7 +35,7 @@ const Header = ({
                     <ul className="navbar-nav ml-auto">
                         <LinkComponent href="/" title="Home" type="nav" />
                         <LinkComponent href="/about" title="About" type="nav" />
-                        <LinkComponent href="/car" title="All Cars" type="nav" />
+                        <LinkComponent href="/mobile/car/all" title="All Cars" type="nav" />
                     </ul>
                     {isAuthenticated ? userNavigation : guestNavigation}
 

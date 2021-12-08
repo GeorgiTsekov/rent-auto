@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router";
 
-import * as authService from '../../services/authServcie';
+import * as authService from '../../services/authService';
 
 const Login = ({
     onLogin
@@ -20,7 +20,7 @@ const Login = ({
         navigate.toString('/');
     }
     return (
-        <div className="hero-wrap" style={{ backgroundImage: "url(images/bg_1.jpg)" }} data-stellar-background-ratio="0.5">
+        <div className="hero-wrap" style={{ backgroundImage: "url(/images/bg_1.jpg)" }} data-stellar-background-ratio="0.5">
             <div className="container">
                 <div className="overlay"></div>
                 <div className="row no-gutters slider-text align-items-center">

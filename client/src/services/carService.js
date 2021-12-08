@@ -8,12 +8,9 @@ export const getAll = async () => {
     return cars;
 }
 
-export const getOne = async () => {
-    let response = await fetch(`${baseUrl}/this`);
-
-    let cars = response.json();
-
-    return cars;
+export const getOne = (carId) => {
+    return fetch(`${baseUrl}/${carId}`)
+        .then(res => res.json());
 }
 
 export const create = async (carData) => {
