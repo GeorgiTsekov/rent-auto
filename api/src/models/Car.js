@@ -75,27 +75,35 @@ const carSchema = new mongoose.Schema({
     },
     childSeat: {
         type: Boolean,
+        default: 0
     },
     gps: {
         type: Boolean,
+        default: 0
     },
     music: {
         type: Boolean,
+        default: 0
     },
     bluetooth: {
         type: Boolean,
+        default: 0
     },
     onboardComputer: {
         type: Boolean,
+        default: 0
     },
     audioInput: {
         type: Boolean,
+        default: 0
     },
     remoteCentralLocking: {
         type: Boolean,
+        default: 0
     },
     airConditioner: {
         type: Boolean,
+        default: 0
     },
     creator: {
         type: mongoose.Types.ObjectId,
