@@ -75,41 +75,49 @@ const carSchema = new mongoose.Schema({
     },
     childSeat: {
         type: Boolean,
-        default: 0
+        default: false
     },
     gps: {
         type: Boolean,
-        default: 0
+        default: false
     },
     music: {
         type: Boolean,
-        default: 0
+        default: false
     },
     bluetooth: {
         type: Boolean,
-        default: 0
+        default: false
     },
     onboardComputer: {
         type: Boolean,
-        default: 0
+        default: false
     },
     audioInput: {
         type: Boolean,
-        default: 0
+        default: false
     },
     remoteCentralLocking: {
         type: Boolean,
-        default: 0
+        default: false
     },
     airConditioner: {
         type: Boolean,
-        default: 0
+        default: false
     },
     creator: {
         type: mongoose.Types.ObjectId,
         ref: "User",
         required: true
     },
+    likes: [
+        {
+            userId: {
+                type: mongoose.Types.ObjectId,
+                ref: 'User'
+            }
+        }
+    ],
     tenants: [
         {
             tenantId: {
@@ -123,7 +131,7 @@ const carSchema = new mongoose.Schema({
                 type: Date,
             }
         }
-    ],
+    ]
 }, {
     timestamps: true
 });

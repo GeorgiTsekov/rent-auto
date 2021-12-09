@@ -46,6 +46,15 @@ router.patch('/:carId/addTenant', auth, async (req, res, next) => {
     }
 });
 
+router.patch('/:carId/like', auth, async (req, res, next) => {
+    try {
+        const car = await carService.likes(req.params.carId, req.user?._id);
+        res.status(200).json({ message: `${req.user?.name} successfully like this ${car.make}` });
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.delete('/:carId/delete', auth, async (req, res, next) => {
     try {
         const car = await carService.getOne(req.params.carId);
@@ -65,6 +74,7 @@ router.delete('/:carId/delete', auth, async (req, res, next) => {
 
 router.post('/create', auth, async (req, res, next) => {
     const creator = req.user._id;
+    const likes = [];
     const {
         make,
         model,
@@ -111,7 +121,8 @@ router.post('/create', auth, async (req, res, next) => {
         audioInput,
         remoteCentralLocking,
         airConditioner,
-        creator
+        creator,
+        likes
     }
 
     try {

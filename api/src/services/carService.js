@@ -10,6 +10,22 @@ exports.delete = (id) => Car.findByIdAndDelete(id);
 
 exports.create = (carData) => Car.create(carData);
 
+exports.likes = async (carId, userId) => {
+    const car = await this.getOne(carId);
+
+    if (car.creator.toJSON() === userId.toJSON()) {
+        throw { message: 'you can not rate your own car' }
+    }
+
+    if (car.likes.find(user => user._id.toJSON() === userId.toJSON())) {
+        throw { message: 'you already liked this car' }
+    }
+
+    car.likes.push(userId);
+
+    return car.save();
+}
+
 exports.addTenant = async (carId, userId, data) => {
     const car = await this.getOne(carId);
     const from = data.dateFrom;

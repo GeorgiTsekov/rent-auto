@@ -5,15 +5,15 @@ const User = require('../models/User');
 
 
 exports.auth = function (req, res, next) {
-    const authHeader = req.get('Authorization')
+    const token = req.get('X-Authorization')
 
-    if (!authHeader) {
+    if (!token) {
         return res.status(401).send({
             message: "Missing Authorization header"
         });
     }
 
-    const token = authHeader.split(' ')[1];
+    // const token = authHeader.split(' ')[1];
     // console.log("Token", token)
     function verifyToken(token) {
         return new Promise((resolve, reject) => {
