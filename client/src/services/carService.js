@@ -13,18 +13,21 @@ export const getOne = (carId) => {
         .then(res => res.json());
 }
 
-export const create = async (carData) => {
+export const create = async (carData, token) => {
     let response = await fetch(`${baseUrl}/create`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         },
         body: JSON.stringify(carData)
     });
 
-    let car = await response.json();
+    let jsonResult = await response.json();
 
-    console.log(car)
-
-    return car;
+    if (response.ok) {
+        return jsonResult;
+    } else {
+        throw jsonResult.message;
+    }
 }

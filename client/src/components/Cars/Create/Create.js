@@ -1,10 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import *as carService from '../../services/carService';
+
+import { AuthContext } from "../../../contexts/AuthContext";
+import *as carService from '../../../services/carService';
 
 const CreateCar = () => {
+    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
-
     const onCarCreate = (e) => {
         e.preventDefault();
         let formData = new FormData(e.currentTarget);
@@ -52,10 +54,15 @@ const CreateCar = () => {
             audioInput,
             remoteCentralLocking,
             airConditioner
-        })
+        }, user.accessToken)
             .then(result => {
-                navigate('/car');
-            });
+                navigate('/car/all');
+            })
+            .catch(err => {
+                console.log(err);
+                // TODO show notification
+                alert(err)
+            })
     }
     return (
         <div className="hero-wrap" style={{ backgroundImage: "url(/images/bg_1.jpg)" }} data-stellar-background-ratio="0.5">

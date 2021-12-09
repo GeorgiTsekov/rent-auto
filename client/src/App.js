@@ -1,12 +1,11 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 
-import * as authService from './services/authService';
 import About from './components/About/About';
-import CarDetails from './components/Cars/CarDetails/CarDetails';
+import CarDetails from './components/Cars/Details/Details';
 import Cars from './components/Cars/Cars';
 import Contacts from './components/Contacts/Contacts';
-import CreateCar from './components/CreateCar/CreateCar';
+import CreateCar from './components/Cars/Create/Create';
 import Footer from './components/Footer/Footer';
 import Header from './components/Header/Header';
 import Login from './components/Login/Login';
@@ -33,7 +32,7 @@ function App() {
   }
 
   return (
-    <AuthContext.Provider value={{user, login}}>
+    <AuthContext.Provider value={{ user, login }}>
       <div className="App">
         <Header />
         <main>
