@@ -36,8 +36,8 @@ export const register = async (name, email, password, rePassword) => {
     }
 }
 
-export const logout = (email) => {
-    // fetch(`${baseUrl}/logout`)
+export const logout = () => {
+    fetch(`${baseUrl}/logout`)
 }
 
 export const getUser = () => {

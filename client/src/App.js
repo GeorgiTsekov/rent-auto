@@ -2,7 +2,7 @@ import { Routes, Route } from 'react-router-dom';
 import { useState } from 'react';
 
 import About from './components/About/About';
-import CarDetails from './components/Cars/Details/Details';
+import Details from './components/Cars/Details/Details';
 import Cars from './components/Cars/Cars';
 import Contacts from './components/Contacts/Contacts';
 import CreateCar from './components/Cars/Create/Create';
@@ -14,9 +14,10 @@ import Register from './components/Register/Register';
 import RentACar from './components/RentACar/RentACar';
 import Main from './components/Main/Main';
 import { AuthContext } from './contexts/AuthContext';
+import  useLocalStorage  from './hooks/useLocalStorage';
 
 function App() {
-  const [user, setUser] = useState({
+  const [user, setUser] = useLocalStorage('user', {
     _id: '',
     name: '',
     email: '',
@@ -42,7 +43,7 @@ function App() {
             <Route path="/auth/logout" element={<Logout />} />
             <Route path="/auth/register" element={<Register />} />
             <Route path="/mobile/car/all" element={<Cars />} />
-            <Route path="/mobile/car/:carId" element={<CarDetails />} />
+            <Route path="/mobile/car/:carId" element={<Details />} />
             <Route path="/mobile/car/create" element={<CreateCar />} />
             <Route path="/about" element={<About />} />
             <Route path="/contacts" element={<Contacts />} />

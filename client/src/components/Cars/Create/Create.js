@@ -56,7 +56,7 @@ const CreateCar = () => {
             airConditioner
         }, user.accessToken)
             .then(result => {
-                navigate('/car/all');
+                navigate('/mobile/car/all');
             })
             .catch(err => {
                 console.log(err);
@@ -97,6 +97,8 @@ const CreateCar = () => {
                                     <option value="Sedan">Sedan</option>
                                     <option value="Hatchback">Hatchback</option>
                                     <option value="Limousine">Limousine</option>
+                                    <option value="Off-road">Off-road</option>
+                                    <option value="Coupe">Coupe</option>
                                     <option value="Suv">Suv</option>
                                 </select>
                             </div>
