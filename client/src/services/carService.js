@@ -1,12 +1,8 @@
+import { request } from './requester';
+
 const baseUrl = 'http://localhost:5000/mobile/car';
 
-export const getAll = async () => {
-    let response = await fetch(`${baseUrl}/all`);
-
-    let cars = response.json();
-
-    return cars;
-}
+export const getAll = () => request(`${baseUrl}/all`);
 
 export const getOne = (carId) => {
     return fetch(`${baseUrl}/${carId}`)

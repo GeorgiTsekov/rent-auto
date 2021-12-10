@@ -1,14 +1,16 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
-import { AuthContext } from "../../../contexts/AuthContext";
+import { useAuthContext } from "../../../contexts/AuthContext";
 import * as carService from "../../../services/carService";
 import LiComponent from "../../LiComponent/LiComponent";
+import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
 
 const Details = () => {
     const navigate = useNavigate();
-    const { user } = useContext(AuthContext)
+    const { user } = useAuthContext()
     const [car, setCar] = useState({});
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const { carId } = useParams();
 
     useEffect(() => {
@@ -27,21 +29,31 @@ const Details = () => {
             })
             .catch(err => {
                 console.log(err);
-                // TODO show notification
                 alert(err)
             })
+            .finally(() => {
+                setShowDeleteDialog(false);
+            });
+    }
+
+    const deleteClickHandler = (e) => {
+        e.preventDefault();
+
+        setShowDeleteDialog(true);
     }
 
     const likeHandler = (e) => {
         e.preventDefault();
 
         carService.likes(carId, user.accessToken)
-            // .then(result => {
-            //     navigate(`/mobile/car/${carId}`);
-            // })
+            .then(likes => {
+                setCar(state => ({
+                    ...state,
+                    likes
+                }))
+            })
             .catch(err => {
                 console.log(err);
-                // TODO show notification
                 alert(err)
             })
     }
@@ -49,7 +61,7 @@ const Details = () => {
     const creatorButtons = (
         <div>
             <Link to={`/mobile/car/${car._id}/edit`} className="btn btn-secondary py-2 ml-1">Edit this car</Link>
-            <button className="btn btn-primary py-2 ml-1" onClick={deleteHandler}>Delete this car</button>
+            <button className="btn btn-primary py-2 ml-1" onClick={deleteClickHandler}>Delete this car</button>
         </div>
     );
 
@@ -60,7 +72,7 @@ const Details = () => {
         </div>
     );
     return (
-        <div>
+        <>
             <section className="hero-wrap hero-wrap-2 js-fullheight" style={{ backgroundImage: "url(/images/bg_3.jpg)" }} data-stellar-background-ratio="0.5">
                 <div className="overlay"></div>
                 <div className="container">
@@ -72,8 +84,7 @@ const Details = () => {
                     </div>
                 </div>
             </section>
-
-
+            <ConfirmDialog show={showDeleteDialog} onClose={() => setShowDeleteDialog(false)} onSave={deleteHandler} />
             <section className="ftco-section ftco-car-details">
                 <div className="container">
                     <div className="row justify-content-center">
@@ -208,9 +219,9 @@ const Details = () => {
                                     <ul className="nav nav-pills mb-3" id="pills-tab" role="tablist">
                                         <li className="nav-item">
                                             <p className="nav-link" >{car.description}</p>
-                                            <p className="nav-link">
+                                            <div className="nav-link">
                                                 {user._id && (user._id === car.creator ? creatorButtons : guestButtons)}
-                                            </p>
+                                            </div>
                                         </li>
                                     </ul>
                                 </div>
@@ -241,7 +252,7 @@ const Details = () => {
                     </div>
                 </div>
             </section>
-        </div>
+        </>
 
 
     );
