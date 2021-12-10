@@ -1,5 +1,4 @@
 import { Routes, Route } from 'react-router-dom';
-import { useState } from 'react';
 
 import About from './components/About/About';
 import Details from './components/Cars/Details/Details';
@@ -14,26 +13,28 @@ import Register from './components/Register/Register';
 import RentACar from './components/RentACar/RentACar';
 import Main from './components/Main/Main';
 import { AuthContext } from './contexts/AuthContext';
-import  useLocalStorage  from './hooks/useLocalStorage';
+import useLocalStorage from './hooks/useLocalStorage';
+
+const initialAuthState = {
+  _id: '',
+  name: '',
+  email: '',
+  accessToken: ''
+};
 
 function App() {
-  const [user, setUser] = useLocalStorage('user', {
-    _id: '',
-    name: '',
-    email: '',
-    accessToken: ''
-  });
+  const [user, setUser] = useLocalStorage('user', initialAuthState);
 
   const login = (authData) => {
     setUser(authData);
-  }
+  };
 
   const logout = () => {
-
-  }
+    setUser(initialAuthState);
+  };
 
   return (
-    <AuthContext.Provider value={{ user, login }}>
+    <AuthContext.Provider value={{ user, login, logout }}>
       <div className="App">
         <Header />
         <main>

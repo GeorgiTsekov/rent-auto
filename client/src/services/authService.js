@@ -36,8 +36,20 @@ export const register = async (name, email, password, rePassword) => {
     }
 }
 
-export const logout = () => {
-    fetch(`${baseUrl}/logout`)
+export const logout = async (token) => {
+    let response = await fetch(`${baseUrl}/logout`, {
+        headers: {
+            'X-Authorization': token
+        }
+    });
+
+    let jsonResult = await response.json();
+
+    if (response.ok) {
+        return jsonResult;
+    } else {
+        throw jsonResult.message;
+    }
 }
 
 export const getUser = () => {
