@@ -49,7 +49,7 @@ router.patch('/:carId/addTenant', auth, async (req, res, next) => {
 router.patch('/:carId/like', auth, async (req, res, next) => {
     try {
         const car = await carService.likes(req.params.carId, req.user?._id);
-        res.status(200).json({ message: `${req.user?.name} successfully like this ${car.make}` });
+        res.status(200).json(car.likes);
     } catch (error) {
         next(error);
     }
