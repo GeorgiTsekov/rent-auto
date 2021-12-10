@@ -1,11 +1,11 @@
-import React, { useContext } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { AuthContext } from "../../../contexts/AuthContext";
+import { useAuthContext } from "../../../contexts/AuthContext";
 import *as carService from '../../../services/carService';
 
-const CreateCar = () => {
-    const { user } = useContext(AuthContext);
+const Create = () => {
+    const { user } = useAuthContext();
     const navigate = useNavigate();
     const onCarCreate = (e) => {
         e.preventDefault();
@@ -194,4 +194,4 @@ const CreateCar = () => {
     )
 }
 
-export default CreateCar;
+export default Create;

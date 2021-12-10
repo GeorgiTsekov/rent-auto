@@ -1,10 +1,8 @@
-import { useContext } from "react";
-
-import { AuthContext } from "../../contexts/AuthContext";
+import { useAuthContext } from "../../contexts/AuthContext";
 import LinkComponent from "../Link/Link";
 
 const Header = () => {
-    const { user } = useContext(AuthContext);
+    const { user } = useAuthContext();
 
     let guestNavigation = (
         <ul className="navbar-nav ml-auto">

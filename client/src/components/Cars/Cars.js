@@ -11,7 +11,10 @@ const Cars = () => {
             .then(result => {
 
                 setCars(result);
-            });
+            })
+            .catch(err => {
+                console.log(err);
+            })
     }, []);
     return (
         <div>
