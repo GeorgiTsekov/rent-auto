@@ -1,17 +1,30 @@
 import { useState } from "react";
-import { Alert } from "react-bootstrap";
+import validator from 'validator';
 import { useNavigate, useParams } from "react-router-dom";
 
 import { useAuthContext } from "../../../contexts/AuthContext";
 import useCarState from "../../../hooks/useCarState";
 import *as carService from '../../../services/carService';
+import InputComponent from "../../Common/InputComponent/InputComponent";
 import { types, fuels, transmissions } from '../carConstants';
 
 const Edit = () => {
     const { user } = useAuthContext();
     const navigate = useNavigate();
     const { carId } = useParams();
-    const [errors, setErrors] = useState({ description: false });
+    const [errors, setErrors] = useState(
+        {
+            description: false,
+            image: false,
+            make: false,
+            model: false,
+            price: false,
+            year: false,
+            mileage: false,
+            seats: false,
+            doors: false,
+            luggage: false
+        });
     const [car, setCar] = useCarState(carId);
 
     const onCarEdit = (e) => {
@@ -72,6 +85,42 @@ const Edit = () => {
             })
     }
 
+    const imageChangeHandler = (e) => {
+        let value = e.target.value;
+        if (!validator.isURL(value)) {
+            setErrors(state => ({ ...state, image: 'Your image should be valid URL!' }));
+        } else {
+            setErrors(state => ({ ...state, image: false }));
+        }
+    }
+
+    const descriptionChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value.length > 300) {
+            setErrors(state => ({ ...state, description: 'Your description should be maximum 300 characters!' }));
+        } else {
+            setErrors(state => ({ ...state, description: false }));
+        }
+    }
+
+    const makeChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value.length < 2) {
+            setErrors(state => ({ ...state, make: 'Your make should be minimum 2 characters!' }));
+        } else {
+            setErrors(state => ({ ...state, make: false }));
+        }
+    }
+
+    const modelChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value.length < 2) {
+            setErrors(state => ({ ...state, model: 'Your model should be minimum 1 characters!' }));
+        } else {
+            setErrors(state => ({ ...state, model: false }));
+        }
+    }
+
     const typeChangeHandler = (e) => {
         setCar(state => ({ ...state, type: e.target.value }));
     }
@@ -84,12 +133,57 @@ const Edit = () => {
         setCar(state => ({ ...state, transmission: e.target.value }));
     }
 
-    const descriptionChangeHandler = (e) => {
-        let currentDescription = e.target.value;
-        if (currentDescription.length > 300) {
-            setErrors(state => ({ ...state, description: 'Your name should be maximum 300 characters!' }));
+    const priceChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value > 1000 || value < 1) {
+            setErrors(state => ({ ...state, price: 'Your price should be between 1 and 1000!' }));
         } else {
-            setErrors(state => ({ ...state, description: false }))
+            setErrors(state => ({ ...state, price: false }));
+        }
+    }
+
+    const yearChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value > 2021 || value < 1930) {
+            setErrors(state => ({ ...state, year: 'Your year should be between 1930 and 2021!' }));
+        } else {
+            setErrors(state => ({ ...state, year: false }));
+        }
+    }
+
+    const mileageChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value > 1000000 || value < 1) {
+            setErrors(state => ({ ...state, mileage: 'Your mileage should be between 1 and 1000000!' }));
+        } else {
+            setErrors(state => ({ ...state, mileage: false }));
+        }
+    }
+
+    const seatsChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value > 9 || value < 1) {
+            setErrors(state => ({ ...state, seats: 'Your seats should be between 1 and 9!' }));
+        } else {
+            setErrors(state => ({ ...state, seats: false }));
+        }
+    }
+
+    const doorsChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value > 5 || value < 2) {
+            setErrors(state => ({ ...state, doors: 'Your doors should be between 2 and 5!' }));
+        } else {
+            setErrors(state => ({ ...state, doors: false }));
+        }
+    }
+
+    const luggageChangeHandler = (e) => {
+        let value = e.target.value;
+        if (value > 6 || value < 0) {
+            setErrors(state => ({ ...state, luggage: 'Your luggage should be between 0 and 6!' }));
+        } else {
+            setErrors(state => ({ ...state, luggage: false }));
         }
     }
 
@@ -101,22 +195,45 @@ const Edit = () => {
                     <form className="request-form bg-primary" onSubmit={onCarEdit} method="PATCH">
                         <h2>Edit your car</h2>
                         <div className="form-group">
-                            <label htmlFor="image" className="label">Image</label>
-                            <input type="text" className="form-control" name="image" defaultValue={car.image} />
+                            <InputComponent
+                                title="Image"
+                                type="text"
+                                name="image"
+                                defaultValue={car.image}
+                                onBlur={imageChangeHandler}
+                                errors={errors.image}
+                            />
                         </div>
                         <div className="form-group">
-                            <label htmlFor="description" className="label">Description</label>
-                            <input type="text" className="form-control" name="description" defaultValue={car.description} onBlur={descriptionChangeHandler} />
-                            <Alert variant="danger" show={errors.description}>{errors.description}</Alert>
+                            <InputComponent
+                                title="Description"
+                                type="text"
+                                name="description"
+                                defaultValue={car.description}
+                                onBlur={descriptionChangeHandler}
+                                errors={errors.description}
+                            />
                         </div>
                         <div className="d-flex">
                             <div className="form-group mr-2">
-                                <label htmlFor="make" className="label">Make</label>
-                                <input type="text" className="form-control" name="make" defaultValue={car.make} />
+                                <InputComponent
+                                    title="Make"
+                                    type="text"
+                                    name="make"
+                                    defaultValue={car.make}
+                                    onBlur={makeChangeHandler}
+                                    errors={errors.make}
+                                />
                             </div>
                             <div className="form-group ml-2">
-                                <label htmlFor="model" className="label">Model</label>
-                                <input type="text" className="form-control" name="model" defaultValue={car.model} />
+                                <InputComponent
+                                    title="Model"
+                                    type="text"
+                                    name="model"
+                                    defaultValue={car.model}
+                                    onBlur={modelChangeHandler}
+                                    errors={errors.model}
+                                />
                             </div>
                         </div>
                         <div className="d-flex">
@@ -141,30 +258,66 @@ const Edit = () => {
                         </div>
                         <div className="d-flex">
                             <div className="form-group mr-2">
-                                <label htmlFor="price" className="label">Price</label>
-                                <input type="number" className="form-control" name="price" defaultValue={car.price} />
+                                <InputComponent
+                                    title="Price"
+                                    type="number"
+                                    name="price"
+                                    defaultValue={car.price}
+                                    onBlur={priceChangeHandler}
+                                    errors={errors.price}
+                                />
                             </div>
                             <div className="form-group ml-2">
-                                <label htmlFor="year" className="label">Year</label>
-                                <input type="number" className="form-control" name="year" defaultValue={car.year} />
+                                <InputComponent
+                                    title="Year"
+                                    type="number"
+                                    name="year"
+                                    defaultValue={car.year}
+                                    onBlur={yearChangeHandler}
+                                    errors={errors.year}
+                                />
                             </div>
                             <div className="form-group ml-2">
-                                <label htmlFor="mileage" className="label">Mileage</label>
-                                <input type="number" className="form-control" name="mileage" defaultValue={car.mileage} />
+                                <InputComponent
+                                    title="Mileage"
+                                    type="number"
+                                    name="mileage"
+                                    defaultValue={car.mileage}
+                                    onBlur={mileageChangeHandler}
+                                    errors={errors.mileage}
+                                />
                             </div>
                         </div>
                         <div className="d-flex">
                             <div className="form-group mr-2">
-                                <label htmlFor="seats" className="label">Seats</label>
-                                <input type="number" className="form-control" name="seats" defaultValue={car.seats} />
+                                <InputComponent
+                                    title="Seats"
+                                    type="number"
+                                    name="seats"
+                                    defaultValue={car.seats}
+                                    onBlur={seatsChangeHandler}
+                                    errors={errors.seats}
+                                />
                             </div>
                             <div className="form-group ml-2">
-                                <label htmlFor="doors" className="label">Doors</label>
-                                <input type="number" className="form-control" name="doors" defaultValue={car.doors} />
+                                <InputComponent
+                                    title="Doors"
+                                    type="number"
+                                    name="doors"
+                                    defaultValue={car.doors}
+                                    onBlur={doorsChangeHandler}
+                                    errors={errors.doors}
+                                />
                             </div>
                             <div className="form-group ml-2">
-                                <label htmlFor="luggage" className="label">Luggage</label>
-                                <input type="number" className="form-control" name="luggage" defaultValue={car.luggage} />
+                                <InputComponent
+                                    title="Luggage"
+                                    type="number"
+                                    name="luggage"
+                                    defaultValue={car.luggage}
+                                    onBlur={luggageChangeHandler}
+                                    errors={errors.luggage}
+                                />
                             </div>
                         </div>
                         <div className="d-flex">
