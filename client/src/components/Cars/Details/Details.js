@@ -1,24 +1,18 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { useAuthContext } from "../../../contexts/AuthContext";
 import * as carService from "../../../services/carService";
 import LiComponent from "../../LiComponent/LiComponent";
 import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
+import useCarState from "../../../hooks/useCarState";
 
 const Details = () => {
     const navigate = useNavigate();
     const { user } = useAuthContext()
-    const [car, setCar] = useState({});
-    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
     const { carId } = useParams();
-
-    useEffect(() => {
-        carService.getOne(carId)
-            .then(carResult => {
-                setCar(carResult);
-            });
-    }, [carId]);
+    const [car, setCar] = useCarState(carId);
+    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
 
     const deleteHandler = (e) => {
         e.preventDefault();
@@ -253,8 +247,6 @@ const Details = () => {
                 </div>
             </section>
         </>
-
-
     );
 }
 

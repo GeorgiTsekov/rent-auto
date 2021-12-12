@@ -46,6 +46,25 @@ export const likes = async (carId, token) => {
     }
 }
 
+export const edit = async (carData, carId, token) => {
+    let response = await fetch(`${baseUrl}/${carId}/edit`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-Authorization': token
+        },
+        body: JSON.stringify(carData)
+    });
+
+    let jsonResult = await response.json();
+
+    if (response.ok) {
+        return await jsonResult;
+    } else {
+        throw jsonResult.message;
+    }
+}
+
 export const deleteCar = async (carId, token) => {
     let response = await fetch(`${baseUrl}/${carId}/delete`, {
         method: 'DELETE',
