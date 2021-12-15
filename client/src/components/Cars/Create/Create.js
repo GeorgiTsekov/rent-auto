@@ -25,14 +25,14 @@ const Create = () => {
         let seats = formData.get('seats');
         let doors = formData.get('doors');
         let luggage = formData.get('luggage');
-        let remoteCentralLocking = formData.get('remoteCentralLocking') ? formData.get('remoteCentralLocking') : 0;
-        let audioInput = formData.get('audioInput') ? formData.get('audioInput') : 0;
-        let childSeat = formData.get('childSeat') ? formData.get('childSeat') : 0;
-        let music = formData.get('music') ? formData.get('music') : 0;
-        let onboardComputer = formData.get('onboardComputer') ? formData.get('onboardComputer') : 0;
-        let airConditioner = formData.get('airConditioner') ? formData.get('airConditioner') : 0;
-        let bluetooth = formData.get('bluetooth') ? formData.get('bluetooth') : 0;
-        let gps = formData.get('gps') ? formData.get('gps') : 0;
+        let remoteCentralLocking = formData.get('remoteCentralLocking') 
+        let audioInput = formData.get('audioInput') 
+        let childSeat = formData.get('childSeat') 
+        let music = formData.get('music') 
+        let onboardComputer = formData.get('onboardComputer') 
+        let airConditioner = formData.get('airConditioner') 
+        let bluetooth = formData.get('bluetooth') 
+        let gps = formData.get('gps');
         carService.create({
             make,
             model,

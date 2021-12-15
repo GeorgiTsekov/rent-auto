@@ -2,14 +2,13 @@ import { useState } from "react";
 import validator from 'validator';
 import { useNavigate, useParams } from "react-router-dom";
 
-import { useAuthContext } from "../../../contexts/AuthContext";
 import useCarState from "../../../hooks/useCarState";
 import *as carService from '../../../services/carService';
 import InputComponent from "../../Common/InputComponent/InputComponent";
 import { types, fuels, transmissions } from '../carConstants';
+import UseCarData from "../UseCarData";
 
 const Edit = () => {
-    const { user } = useAuthContext();
     const navigate = useNavigate();
     const { carId } = useParams();
     const [errors, setErrors] = useState(
@@ -29,52 +28,11 @@ const Edit = () => {
 
     const onCarEdit = (e) => {
         e.preventDefault();
-        let formData = new FormData(e.currentTarget);
+        let carData = Object.fromEntries(new FormData(e.currentTarget));
+        
 
-        let image = formData.get('image');
-        let description = formData.get('description');
-        let make = formData.get('make');
-        let model = formData.get('model');
-        let type = formData.get('type');
-        let fuel = formData.get('fuel');
-        let transmission = formData.get('transmission');
-        let price = formData.get('price');
-        let year = formData.get('year');
-        let mileage = formData.get('mileage');
-        let seats = formData.get('seats');
-        let doors = formData.get('doors');
-        let luggage = formData.get('luggage');
-        let remoteCentralLocking = formData.get('remoteCentralLocking') ? 1 : 0;
-        let audioInput = formData.get('audioInput') ? 1 : 0;
-        let childSeat = formData.get('childSeat') ? 1 : 0;
-        let music = formData.get('music') ? 1 : 0;
-        let onboardComputer = formData.get('onboardComputer') ? 1 : 0;
-        let airConditioner = formData.get('airConditioner') ? 1 : 0;
-        let bluetooth = formData.get('bluetooth') ? 1 : 0;
-        let gps = formData.get('gps') ? 1 : 0;
-        carService.edit({
-            make,
-            model,
-            type,
-            image,
-            fuel,
-            transmission,
-            description,
-            mileage,
-            price,
-            seats,
-            doors,
-            luggage,
-            year,
-            childSeat,
-            gps,
-            music,
-            bluetooth,
-            onboardComputer,
-            audioInput,
-            remoteCentralLocking,
-            airConditioner
-        }, carId, user.accessToken)
+        let editeDarData = UseCarData(carData);
+        carService.edit(editeDarData, carId)
             .then(result => {
                 navigate(`/mobile/car/${carId}`);
             })
