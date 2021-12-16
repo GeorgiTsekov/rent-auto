@@ -14,29 +14,34 @@ import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
 import Register from './components/Register/Register';
+import { NotificationProvider } from './contexts/NotificationContext';
+import Notification from './components/Common/Notification/Notification';
 
 function App() {
   return (
     <AuthProvider>
-      <div className="App">
-        <Header />
-        <main>
-          <Routes>
-            <Route path="/" element={<Main />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/contacts" element={<Contacts />} />
-            <Route path="/auth/login" element={<Login />} />
-            <Route path="/auth/logout" element={<Logout />} />
-            <Route path="/auth/register" element={<Register />} />
-            <Route path="/mobile/car/all" element={<Cars />} />
-            <Route path="/mobile/car/:carId" element={<Details />} />
-            <Route path="/mobile/car/create" element={<Create />} />
-            <Route path="/mobile/car/:carId/addTenant" element={<RentACar />} />
-            <Route path="/mobile/car/:carId/edit" element={<Edit />} />
-          </Routes>
-        </main>
-        <Footer />
-      </div>
+      <NotificationProvider>
+        <div className="App">
+          <Header />
+          <Notification />
+          <main>
+            <Routes>
+              <Route path="/" element={<Main />} />
+              <Route path="/about" element={<About />} />
+              <Route path="/contacts" element={<Contacts />} />
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/logout" element={<Logout />} />
+              <Route path="/auth/register" element={<Register />} />
+              <Route path="/mobile/car/all" element={<Cars />} />
+              <Route path="/mobile/car/:carId" element={<Details />} />
+              <Route path="/mobile/car/create" element={<Create />} />
+              <Route path="/mobile/car/:carId/addTenant" element={<RentACar />} />
+              <Route path="/mobile/car/:carId/edit" element={<Edit />} />
+            </Routes>
+          </main>
+          <Footer />
+        </div>
+      </NotificationProvider>
     </AuthProvider>
   );
 }

@@ -5,11 +5,13 @@ import { useNavigate, useParams } from "react-router-dom";
 import useCarState from "../../../hooks/useCarState";
 import *as carService from '../../../services/carService';
 import InputComponent from "../../Common/InputComponent/InputComponent";
-import { types, fuels, transmissions } from '../carConstants';
+import { carTypes, fuels, transmissions } from '../carConstants';
 import UseCarData from "../UseCarData";
+import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 
 const Edit = () => {
     const navigate = useNavigate();
+    const { addNotification } = useNotificationContext();
     const { carId } = useParams();
     const [errors, setErrors] = useState(
         {
@@ -29,17 +31,18 @@ const Edit = () => {
     const onCarEdit = (e) => {
         e.preventDefault();
         let carData = Object.fromEntries(new FormData(e.currentTarget));
-        
+
 
         let editeDarData = UseCarData(carData);
         carService.edit(editeDarData, carId)
-            .then(result => {
+            .then((result) => {
+                console.log(result)
+                addNotification(result.message, types.success)
                 navigate(`/mobile/car/${carId}`);
             })
             .catch(err => {
                 console.log(err);
-                // TODO show notification
-                alert(err)
+                addNotification(err.message, types.error)
             })
     }
 
@@ -198,7 +201,7 @@ const Edit = () => {
                             <div className="form-group mr-2">
                                 <label htmlFor="type" className="label">Type</label>
                                 <select name="type" id="type" className="form-control" value={car.type} onChange={typeChangeHandler}>
-                                    {types.map(x => <option key={x.value} value={x.value} >{x.value}</option>)}
+                                    {carTypes.map(x => <option key={x.value} value={x.value} >{x.value}</option>)}
                                 </select>
                             </div>
                             <div className="form-group mr-2">

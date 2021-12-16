@@ -1,10 +1,12 @@
 import { useNavigate } from "react-router";
 
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useNotificationContext, types } from "../../contexts/NotificationContext";
 import * as authService from '../../services/authService';
 
 const Login = () => {
     const { login } = useAuthContext();
+    const { addNotification } = useNotificationContext();
     const navigate = useNavigate();
 
     const onLoginHandler = (e) => {
@@ -18,13 +20,12 @@ const Login = () => {
         authService.login(email, password)
             .then((authData) => {
                 login(authData);
-
+                addNotification('You logged in successully!', types.success);
                 navigate('/');
             })
             .catch(err => {
                 console.log(err);
-                // TODO show notification
-                alert(err)
+                addNotification(err, types.error)
             })
     }
     return (

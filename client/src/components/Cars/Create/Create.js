@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../../../contexts/AuthContext";
 import *as carService from '../../../services/carService';
-import { types, fuels, transmissions } from '../carConstants';
+import { carTypes, fuels, transmissions } from '../carConstants';
 
 const Create = () => {
     const { user } = useAuthContext();
@@ -94,7 +94,7 @@ const Create = () => {
                             <div className="form-group mr-2">
                                 <label htmlFor="type" className="label">Type</label>
                                 <select name="type" id="type" className="form-control">
-                                    {types.map(x => <option key={x.value} value={x.value} >{x.value}</option>)}
+                                    {carTypes.map(x => <option key={x.value} value={x.value} >{x.value}</option>)}
                                 </select>
                             </div>
                             <div className="form-group mr-2">

@@ -1,4 +1,4 @@
-export const types = [
+export const carTypes = [
     { value: "Combi" },
     { value: "Sedan" },
     { value: "Hatchback" },
