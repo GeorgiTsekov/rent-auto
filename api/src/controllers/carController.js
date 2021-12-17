@@ -75,52 +75,9 @@ router.delete('/:carId/delete', auth, async (req, res, next) => {
 router.post('/create', auth, async (req, res, next) => {
     const creator = req.user._id;
     const likes = [];
-    const {
-        make,
-        model,
-        type,
-        image,
-        fuel,
-        transmission,
-        description,
-        mileage,
-        price,
-        seats,
-        doors,
-        luggage,
-        year,
-        childSeat,
-        gps,
-        music,
-        bluetooth,
-        onboardComputer,
-        audioInput,
-        remoteCentralLocking,
-        airConditioner,
-    } = req.body;
 
     const carData = {
-        make,
-        model,
-        type,
-        image,
-        fuel,
-        transmission,
-        description,
-        mileage,
-        price,
-        seats,
-        doors,
-        luggage,
-        year,
-        childSeat,
-        gps,
-        music,
-        bluetooth,
-        onboardComputer,
-        audioInput,
-        remoteCentralLocking,
-        airConditioner,
+        ...req.body,
         creator,
         likes
     }

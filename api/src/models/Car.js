@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const validator = require('validator');
+mongoose.set('runValidators', true)
 
 const carSchema = new mongoose.Schema({
     make: {
