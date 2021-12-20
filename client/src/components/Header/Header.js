@@ -2,7 +2,7 @@ import { useAuthContext } from "../../contexts/AuthContext";
 import LinkComponent from "../Link/Link";
 
 const Header = () => {
-    const { user } = useAuthContext();
+    const { user, isAdministrator, isAuthenticated } = useAuthContext();
 
     let guestNavigation = (
         <ul className="navbar-nav ml-auto">
@@ -12,6 +12,14 @@ const Header = () => {
     )
 
     let userNavigation = (
+        <ul className="navbar-nav ml-auto">
+            <LinkComponent href="/auth/profile" title={`Welcome, ${user.name}`} type="nav" />
+            <LinkComponent href="/mobile/car/:carId/rent" title="Rent a Car" type="nav" />
+            <LinkComponent href="/auth/logout" title="Logout" type="nav" />
+        </ul>
+    )
+
+    let administratorNavigation = (
         <ul className="navbar-nav ml-auto">
             <LinkComponent href="/auth/profile" title={`Welcome, ${user.name}`} type="nav" />
             <LinkComponent href="/mobile/car/:carId/rent" title="Rent a Car" type="nav" />
@@ -34,7 +42,7 @@ const Header = () => {
                         <LinkComponent href="/about" title="About" type="nav" />
                         <LinkComponent href="/mobile/car/all" title="All Cars" type="nav" />
                     </ul>
-                    {user.name ? userNavigation : guestNavigation}
+                    {isAuthenticated ? (isAdministrator ? administratorNavigation : userNavigation) : guestNavigation}
                 </div>
             </div>
         </nav >

@@ -16,6 +16,9 @@ import Logout from './components/Logout/Logout';
 import Register from './components/Register/Register';
 import { NotificationProvider } from './contexts/NotificationContext';
 import Notification from './components/Common/Notification/Notification';
+import AdminGuardedRoute from './components/Common/AdminGuardedRoute';
+import PrivateRoute from './components/Common/PrivateRoute';
+import NotPrivedRoute from './components/Common/NotPrivedRoute';
 
 function App() {
   return (
@@ -29,14 +32,20 @@ function App() {
               <Route path="/" element={<Main />} />
               <Route path="/about" element={<About />} />
               <Route path="/contacts" element={<Contacts />} />
-              <Route path="/auth/login" element={<Login />} />
-              <Route path="/auth/logout" element={<Logout />} />
-              <Route path="/auth/register" element={<Register />} />
               <Route path="/mobile/car/all" element={<Cars />} />
               <Route path="/mobile/car/:carId" element={<Details />} />
-              <Route path="/mobile/car/create" element={<Create />} />
-              <Route path="/mobile/car/:carId/addTenant" element={<RentACar />} />
-              <Route path="/mobile/car/:carId/edit" element={<Edit />} />
+              <Route element={<NotPrivedRoute />}>
+              <Route path="/auth/login" element={<Login />} />
+              <Route path="/auth/register" element={<Register />} />
+              </Route>
+              <Route element={<PrivateRoute />}>
+                <Route path="/mobile/car/:carId/addTenant" element={<RentACar />} />
+                <Route path="/auth/logout" element={<Logout />} />
+              </Route>
+              <Route element={<AdminGuardedRoute />}>
+                <Route path="/mobile/car/create" element={<Create />} />
+                <Route path="/mobile/car/:carId/edit" element={<Edit />} />
+              </Route>
             </Routes>
           </main>
           <Footer />
