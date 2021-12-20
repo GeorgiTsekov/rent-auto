@@ -6,6 +6,7 @@ import * as carService from "../../../services/carService";
 import LiComponent from "../../LiComponent/LiComponent";
 import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
 import useCarState from "../../../hooks/useCarState";
+import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 
 const Details = () => {
     const navigate = useNavigate();
@@ -13,17 +14,19 @@ const Details = () => {
     const { carId } = useParams();
     const [car, setCar] = useCarState(carId);
     const [showDeleteDialog, setShowDeleteDialog] = useState(false);
+    const { addNotification } = useNotificationContext();
 
     const deleteHandler = (e) => {
         e.preventDefault();
 
         carService.deleteCar(carId, user.accessToken)
             .then(result => {
+                addNotification(result.message, types.success)
                 navigate('/mobile/car/all');
             })
             .catch(err => {
                 console.log(err);
-                alert(err)
+                addNotification(err.message, types.error)
             })
             .finally(() => {
                 setShowDeleteDialog(false);
@@ -45,10 +48,11 @@ const Details = () => {
                     ...state,
                     likes
                 }))
+                addNotification("You like this car successfully", types.success)
             })
             .catch(err => {
+                addNotification(err, types.error)
                 console.log(err);
-                alert(err)
             })
     }
 
