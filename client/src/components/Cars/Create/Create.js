@@ -4,67 +4,46 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import *as carService from '../../../services/carService';
 import { carTypes, fuels, transmissions } from '../carConstants';
+import InputComponent from "../../Common/InputFormComponent/InputFormComponent";
+import CarDataCheckboxesUpdate from "../CarData";
+import CarValidations from "../CarValidations";
+import { useNotificationContext, types } from "../../../contexts/NotificationContext";
+import CheckboxFormComponent from "../../Common/CheckboxFormComponent/CheckboxFormComponent";
 
 const Create = () => {
+    const { addNotification } = useNotificationContext();
     const { user } = useAuthContext();
     const navigate = useNavigate();
+    const {
+        imageChangeHandler,
+        descriptionChangeHandler,
+        makeChangeHandler,
+        yearChangeHandler,
+        doorsChangeHandler,
+        modelChangeHandler,
+        priceChangeHandler,
+        seatsChangeHandler,
+        luggageChangeHandler,
+        mileageChangeHandler,
+        errors
+    } = CarValidations();
+
     const onCarCreate = (e) => {
         e.preventDefault();
-        let formData = new FormData(e.currentTarget);
-
-        let image = formData.get('image');
-        let description = formData.get('description');
-        let make = formData.get('make');
-        let model = formData.get('model');
-        let type = formData.get('type');
-        let fuel = formData.get('fuel');
-        let transmission = formData.get('transmission');
-        let price = formData.get('price');
-        let year = formData.get('year');
-        let mileage = formData.get('mileage');
-        let seats = formData.get('seats');
-        let doors = formData.get('doors');
-        let luggage = formData.get('luggage');
-        let remoteCentralLocking = formData.get('remoteCentralLocking') 
-        let audioInput = formData.get('audioInput') 
-        let childSeat = formData.get('childSeat') 
-        let music = formData.get('music') 
-        let onboardComputer = formData.get('onboardComputer') 
-        let airConditioner = formData.get('airConditioner') 
-        let bluetooth = formData.get('bluetooth') 
-        let gps = formData.get('gps');
-        carService.create({
-            make,
-            model,
-            type,
-            image,
-            fuel,
-            transmission,
-            description,
-            mileage,
-            price,
-            seats,
-            doors,
-            luggage,
-            year,
-            childSeat,
-            gps,
-            music,
-            bluetooth,
-            onboardComputer,
-            audioInput,
-            remoteCentralLocking,
-            airConditioner
-        }, user.accessToken)
+        let carData = Object.fromEntries(new FormData(e.currentTarget));
+        console.log(carData)
+        let updatedCarData = CarDataCheckboxesUpdate(carData);
+        carService.create(updatedCarData, user.accessToken)
             .then(result => {
+                addNotification(result.message, types.success)
                 navigate('/mobile/car/all');
             })
             .catch(err => {
                 console.log(err);
-                // TODO show notification
-                alert(err)
+                addNotification(err, types.error)
             })
     }
+
     return (
         <div className="hero-wrap" style={{ backgroundImage: "url(/images/bg_1.jpg)" }} data-stellar-background-ratio="0.5">
             <div className="container">
@@ -72,23 +51,43 @@ const Create = () => {
                 <div className="row no-gutters slider-text align-items-center">
                     <form className="request-form bg-primary" onSubmit={onCarCreate} method="POST">
                         <h2>Create your car</h2>
-                        <div className="form-group">
-                            <label htmlFor="image" className="label">Image</label>
-                            <input type="text" className="form-control" name="image" placeholder="https://car-image.bg" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="description" className="label">Description</label>
-                            <input type="text" className="form-control" name="description" placeholder="Say something for this car" />
-                        </div>
+                        <InputComponent
+                            form="form-group"
+                            title="Image"
+                            type="text"
+                            name="image"
+                            placeholder="https://car-image.bg"
+                            onBlur={imageChangeHandler}
+                            errors={errors.image}
+                        />
+                        <InputComponent
+                            form="form-group"
+                            title="Description"
+                            type="text"
+                            name="description"
+                            placeholder="Say something about car..."
+                            onBlur={descriptionChangeHandler}
+                            errors={errors.description}
+                        />
                         <div className="d-flex">
-                            <div className="form-group mr-2">
-                                <label htmlFor="make" className="label">Make</label>
-                                <input type="text" className="form-control" name="make" placeholder="Audi" />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="model" className="label">Model</label>
-                                <input type="text" className="form-control" name="model" placeholder="A1" />
-                            </div>
+                            <InputComponent
+                                form="form-group mr-2"
+                                title="Make"
+                                type="text"
+                                name="make"
+                                placeholder="Audi, Porshe,..."
+                                onBlur={makeChangeHandler}
+                                errors={errors.make}
+                            />
+                            <InputComponent
+                                form="form-group mr-2"
+                                title="Model"
+                                type="text"
+                                name="model"
+                                placeholder="model of the car"
+                                onBlur={modelChangeHandler}
+                                errors={errors.model}
+                            />
                         </div>
                         <div className="d-flex">
                             <div className="form-group mr-2">
@@ -104,75 +103,121 @@ const Create = () => {
                                 </select>
                             </div>
                             <div className="form-group mr-2">
-                                <label htmlFor="transmission" className="label">Type</label>
+                                <label htmlFor="transmission" className="label">Transmission</label>
                                 <select name="transmission" id="transmission" className="form-control">
                                     {transmissions.map(x => <option key={x.value} value={x.value} >{x.value}</option>)}
                                 </select>
                             </div>
                         </div>
                         <div className="d-flex">
-                            <div className="form-group mr-2">
-                                <label htmlFor="price" className="label">Price</label>
-                                <input type="number" className="form-control" name="price" placeholder="250" />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="year" className="label">Year</label>
-                                <input type="number" className="form-control" name="year" placeholder="2020" />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="mileage" className="label">Mileage</label>
-                                <input type="number" className="form-control" name="mileage" placeholder="50000" />
-                            </div>
+                            <InputComponent
+                                form="form-group mr-2"
+                                title="Price"
+                                type="number"
+                                name="price"
+                                placeholder="115"
+                                onBlur={priceChangeHandler}
+                                errors={errors.price}
+                            />
+                            <InputComponent
+                                form="form-group ml-2"
+                                title="Year"
+                                type="number"
+                                name="year"
+                                placeholder="2015"
+                                onBlur={yearChangeHandler}
+                                errors={errors.year}
+                            />
+                            <InputComponent
+                                form="form-group ml-2"
+                                title="Km"
+                                type="number"
+                                name="mileage"
+                                placeholder="10000"
+                                onBlur={mileageChangeHandler}
+                                errors={errors.mileage}
+                            />
                         </div>
                         <div className="d-flex">
-                            <div className="form-group mr-2">
-                                <label htmlFor="seats" className="label">Seats</label>
-                                <input type="number" className="form-control" name="seats" placeholder="5" />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="doors" className="label">Doors</label>
-                                <input type="number" className="form-control" name="doors" placeholder="4" />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="luggage" className="label">Luggage</label>
-                                <input type="number" className="form-control" name="luggage" placeholder="1" />
-                            </div>
+                            <InputComponent
+                                form="form-group mr-2"
+                                title="Seats"
+                                type="number"
+                                name="seats"
+                                placeholder="4"
+                                onBlur={seatsChangeHandler}
+                                errors={errors.seats}
+                            />
+                            <InputComponent
+                                form="form-group ml-2"
+                                title="Doors"
+                                type="number"
+                                name="doors"
+                                placeholder="2"
+                                onBlur={doorsChangeHandler}
+                                errors={errors.doors}
+                            />
+                            <InputComponent
+                                form="form-group ml-2"
+                                title="Luggage"
+                                type="number"
+                                name="luggage"
+                                placeholder="1"
+                                onBlur={luggageChangeHandler}
+                                errors={errors.luggage}
+                            />
                         </div>
                         <div className="d-flex">
-                            <div className="form-group ml-2">
-                                <label htmlFor="remoteCentralLocking" className="label">Central Locking</label>
-                                <input type="checkbox" className="form-control-checkbox" name="remoteCentralLocking" value={1} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="audioInput" className="label">audio Input</label>
-                                <input type="checkbox" className="form-control-checkbox" name="audioInput" value={1} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="childSeat" className="label">ChildSeat</label>
-                                <input type="checkbox" className="form-control-checkbox" name="childSeat" value={1} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="music" className="label">music</label>
-                                <input type="checkbox" className="form-control-checkbox" name="music" value={1} />
-                            </div>
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Central Locking"
+                                name="remoteCentralLocking"
+                                value={1}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Audio Input"
+                                name="audioInput"
+                                value={1}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="ChildSeat"
+                                name="childSeat"
+                                value={1}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Music"
+                                name="music"
+                                value={1}
+                            />
                         </div>
                         <div className="d-flex">
-                            <div className="form-group ml-2">
-                                <label htmlFor="onboardComputer" className="label">board Computer</label>
-                                <input type="checkbox" className="form-control-checkbox" name="onboardComputer" value={1} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="airConditioner" className="label">airConditioner</label>
-                                <input type="checkbox" className="form-control-checkbox" name="airConditioner" value={1} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="bluetooth" className="label">bluetooth</label>
-                                <input type="checkbox" className="form-control-checkbox" name="bluetooth" value={1} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="gps" className="label">Gps</label>
-                                <input type="checkbox" className="form-control-checkbox" name="gps" value={1} />
-                            </div>
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Board Computer"
+                                name="onboardComputer"
+                                value={1}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="AirConditioner"
+                                name="airConditioner"
+                                value={1}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Bluetooth"
+                                name="bluetooth"
+                                value={1}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Gps"
+                                name="gps"
+                                value={1}
+                            />
                         </div>
                         <div className="form-group">
                             <input type="submit" value="Create A Car Now" className="btn btn-secondary py-3 px-4" />

@@ -1,4 +1,4 @@
-const CarData = (carData) => {
+const CarDataCheckboxesUpdate = (carData) => {
     let remoteCentralLocking = carData.remoteCentralLocking ? 1 : 0;
     let audioInput = carData.audioInput ? 1 : 0;
     let childSeat = carData.childSeat ? 1 : 0;
@@ -11,4 +11,4 @@ const CarData = (carData) => {
     return { ...carData, remoteCentralLocking, audioInput, childSeat, music, onboardComputer, airConditioner, bluetooth, gps }
 }
 
-export default CarData;
+export default CarDataCheckboxesUpdate;

@@ -4,7 +4,7 @@ import useCarState from "../../../hooks/useCarState";
 import *as carService from '../../../services/carService';
 import InputComponent from "../../Common/InputFormComponent/InputFormComponent";
 import { carTypes, fuels, transmissions } from '../carConstants';
-import CarData from "../CarData";
+import CarDataCheckboxesUpdate from "../CarData";
 import CarValidations from "../CarValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 import CheckboxFormComponent from "../../Common/CheckboxFormComponent/CheckboxFormComponent";
@@ -31,9 +31,8 @@ const Edit = () => {
         e.preventDefault();
         let carData = Object.fromEntries(new FormData(e.currentTarget));
 
-
-        let editeDarData = CarData(carData);
-        carService.edit(editeDarData, carId)
+        let updatedCarData = CarDataCheckboxesUpdate(carData);
+        carService.edit(updatedCarData, carId)
             .then((result) => {
                 addNotification(result.message, types.success)
                 navigate(`/mobile/car/${carId}`);
@@ -142,7 +141,7 @@ const Edit = () => {
                             />
                             <InputComponent
                                 form="form-group ml-2"
-                                title="Mileage"
+                                title="Km"
                                 type="number"
                                 name="mileage"
                                 defaultValue={car.mileage}

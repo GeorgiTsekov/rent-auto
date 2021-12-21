@@ -107,7 +107,7 @@ const Details = () => {
                                         <div className="icon d-flex align-items-center justify-content-center"><span className="flaticon-dashboard"></span></div>
                                         <div className="text">
                                             <h3 className="heading mb-0 pl-3">
-                                                Mileage
+                                                Km
                                                 <span>{car.mileage}</span>
                                             </h3>
                                         </div>
