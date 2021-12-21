@@ -14,9 +14,7 @@ const userSchema = new mongoose.Schema({
         required: [true, 'Email is required!'],
         unique: true,
         // validate: [/^[a-zA-Z0-9]+$/, 'Email should consist english letters and digits only!'],
-        validate: [validator.isEmail, 'Email shout be real email'],
-        maxlength: 20,
-        minlength: 5,
+        validate: [validator.isEmail, 'Email shout be real email']
     },
     password: {
         type: String,
