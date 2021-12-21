@@ -1,42 +1,39 @@
-import { useState } from "react";
-import validator from 'validator';
 import { useNavigate, useParams } from "react-router-dom";
 
 import useCarState from "../../../hooks/useCarState";
 import *as carService from '../../../services/carService';
 import InputComponent from "../../Common/InputComponent/InputComponent";
 import { carTypes, fuels, transmissions } from '../carConstants';
-import UseCarData from "../UseCarData";
+import CarData from "../CarData";
+import CarValidations from "../CarValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 
 const Edit = () => {
     const navigate = useNavigate();
     const { addNotification } = useNotificationContext();
     const { carId } = useParams();
-    const [errors, setErrors] = useState(
-        {
-            description: false,
-            image: false,
-            make: false,
-            model: false,
-            price: false,
-            year: false,
-            mileage: false,
-            seats: false,
-            doors: false,
-            luggage: false
-        });
     const [car, setCar] = useCarState(carId);
-
+    const {
+        imageChangeHandler,
+        descriptionChangeHandler,
+        makeChangeHandler,
+        yearChangeHandler,
+        doorsChangeHandler,
+        modelChangeHandler,
+        priceChangeHandler,
+        seatsChangeHandler,
+        luggageChangeHandler,
+        mileageChangeHandler,
+        errors
+    } = CarValidations();
     const onCarEdit = (e) => {
         e.preventDefault();
         let carData = Object.fromEntries(new FormData(e.currentTarget));
 
 
-        let editeDarData = UseCarData(carData);
+        let editeDarData = CarData(carData);
         carService.edit(editeDarData, carId)
             .then((result) => {
-                console.log(result)
                 addNotification(result.message, types.success)
                 navigate(`/mobile/car/${carId}`);
             })
@@ -44,42 +41,6 @@ const Edit = () => {
                 console.log(err);
                 addNotification(err.message, types.error)
             })
-    }
-
-    const imageChangeHandler = (e) => {
-        let value = e.target.value;
-        if (!validator.isURL(value)) {
-            setErrors(state => ({ ...state, image: 'Your image should be valid URL!' }));
-        } else {
-            setErrors(state => ({ ...state, image: false }));
-        }
-    }
-
-    const descriptionChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value.length > 300) {
-            setErrors(state => ({ ...state, description: 'Your description should be maximum 300 characters!' }));
-        } else {
-            setErrors(state => ({ ...state, description: false }));
-        }
-    }
-
-    const makeChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value.length < 2) {
-            setErrors(state => ({ ...state, make: 'Your make should be minimum 2 characters!' }));
-        } else {
-            setErrors(state => ({ ...state, make: false }));
-        }
-    }
-
-    const modelChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value.length < 2) {
-            setErrors(state => ({ ...state, model: 'Your model should be minimum 1 characters!' }));
-        } else {
-            setErrors(state => ({ ...state, model: false }));
-        }
     }
 
     const typeChangeHandler = (e) => {
@@ -94,60 +55,6 @@ const Edit = () => {
         setCar(state => ({ ...state, transmission: e.target.value }));
     }
 
-    const priceChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value > 1000 || value < 1) {
-            setErrors(state => ({ ...state, price: 'Your price should be between 1 and 1000!' }));
-        } else {
-            setErrors(state => ({ ...state, price: false }));
-        }
-    }
-
-    const yearChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value > 2021 || value < 1930) {
-            setErrors(state => ({ ...state, year: 'Your year should be between 1930 and 2021!' }));
-        } else {
-            setErrors(state => ({ ...state, year: false }));
-        }
-    }
-
-    const mileageChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value > 1000000 || value < 1) {
-            setErrors(state => ({ ...state, mileage: 'Your mileage should be between 1 and 1000000!' }));
-        } else {
-            setErrors(state => ({ ...state, mileage: false }));
-        }
-    }
-
-    const seatsChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value > 9 || value < 1) {
-            setErrors(state => ({ ...state, seats: 'Your seats should be between 1 and 9!' }));
-        } else {
-            setErrors(state => ({ ...state, seats: false }));
-        }
-    }
-
-    const doorsChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value > 5 || value < 2) {
-            setErrors(state => ({ ...state, doors: 'Your doors should be between 2 and 5!' }));
-        } else {
-            setErrors(state => ({ ...state, doors: false }));
-        }
-    }
-
-    const luggageChangeHandler = (e) => {
-        let value = e.target.value;
-        if (value > 6 || value < 0) {
-            setErrors(state => ({ ...state, luggage: 'Your luggage should be between 0 and 6!' }));
-        } else {
-            setErrors(state => ({ ...state, luggage: false }));
-        }
-    }
-
     return (
         <div className="hero-wrap" style={{ backgroundImage: "url(/images/bg_1.jpg)" }} data-stellar-background-ratio="0.5">
             <div className="container">
@@ -155,47 +62,43 @@ const Edit = () => {
                 <div className="row no-gutters slider-text align-items-center">
                     <form className="request-form bg-primary" onSubmit={onCarEdit} method="PATCH">
                         <h2>Edit your car</h2>
-                        <div className="form-group">
-                            <InputComponent
-                                title="Image"
-                                type="text"
-                                name="image"
-                                defaultValue={car.image}
-                                onBlur={imageChangeHandler}
-                                errors={errors.image}
-                            />
-                        </div>
-                        <div className="form-group">
-                            <InputComponent
-                                title="Description"
-                                type="text"
-                                name="description"
-                                defaultValue={car.description}
-                                onBlur={descriptionChangeHandler}
-                                errors={errors.description}
-                            />
-                        </div>
+                        <InputComponent
+                            form="form-group"
+                            title="Image"
+                            type="text"
+                            name="image"
+                            defaultValue={car.image}
+                            onBlur={imageChangeHandler}
+                            errors={errors.image}
+                        />
+                        <InputComponent
+                            form="form-group"
+                            title="Description"
+                            type="text"
+                            name="description"
+                            defaultValue={car.description}
+                            onBlur={descriptionChangeHandler}
+                            errors={errors.description}
+                        />
                         <div className="d-flex">
-                            <div className="form-group mr-2">
-                                <InputComponent
-                                    title="Make"
-                                    type="text"
-                                    name="make"
-                                    defaultValue={car.make}
-                                    onBlur={makeChangeHandler}
-                                    errors={errors.make}
-                                />
-                            </div>
-                            <div className="form-group ml-2">
-                                <InputComponent
-                                    title="Model"
-                                    type="text"
-                                    name="model"
-                                    defaultValue={car.model}
-                                    onBlur={modelChangeHandler}
-                                    errors={errors.model}
-                                />
-                            </div>
+                            <InputComponent
+                                form="form-group mr-2"
+                                title="Make"
+                                type="text"
+                                name="make"
+                                defaultValue={car.make}
+                                onBlur={makeChangeHandler}
+                                errors={errors.make}
+                            />
+                            <InputComponent
+                                form="form-group mr-2"
+                                title="Model"
+                                type="text"
+                                name="model"
+                                defaultValue={car.model}
+                                onBlur={modelChangeHandler}
+                                errors={errors.model}
+                            />
                         </div>
                         <div className="d-flex">
                             <div className="form-group mr-2">
@@ -218,68 +121,62 @@ const Edit = () => {
                             </div>
                         </div>
                         <div className="d-flex">
-                            <div className="form-group mr-2">
-                                <InputComponent
-                                    title="Price"
-                                    type="number"
-                                    name="price"
-                                    defaultValue={car.price}
-                                    onBlur={priceChangeHandler}
-                                    errors={errors.price}
-                                />
-                            </div>
-                            <div className="form-group ml-2">
-                                <InputComponent
-                                    title="Year"
-                                    type="number"
-                                    name="year"
-                                    defaultValue={car.year}
-                                    onBlur={yearChangeHandler}
-                                    errors={errors.year}
-                                />
-                            </div>
-                            <div className="form-group ml-2">
-                                <InputComponent
-                                    title="Mileage"
-                                    type="number"
-                                    name="mileage"
-                                    defaultValue={car.mileage}
-                                    onBlur={mileageChangeHandler}
-                                    errors={errors.mileage}
-                                />
-                            </div>
+                            <InputComponent
+                                form="form-group mr-2"
+                                title="Price"
+                                type="number"
+                                name="price"
+                                defaultValue={car.price}
+                                onBlur={priceChangeHandler}
+                                errors={errors.price}
+                            />
+                            <InputComponent
+                                form="form-group ml-2"
+                                title="Year"
+                                type="number"
+                                name="year"
+                                defaultValue={car.year}
+                                onBlur={yearChangeHandler}
+                                errors={errors.year}
+                            />
+                            <InputComponent
+                                form="form-group ml-2"
+                                title="Mileage"
+                                type="number"
+                                name="mileage"
+                                defaultValue={car.mileage}
+                                onBlur={mileageChangeHandler}
+                                errors={errors.mileage}
+                            />
                         </div>
                         <div className="d-flex">
-                            <div className="form-group mr-2">
-                                <InputComponent
-                                    title="Seats"
-                                    type="number"
-                                    name="seats"
-                                    defaultValue={car.seats}
-                                    onBlur={seatsChangeHandler}
-                                    errors={errors.seats}
-                                />
-                            </div>
-                            <div className="form-group ml-2">
-                                <InputComponent
-                                    title="Doors"
-                                    type="number"
-                                    name="doors"
-                                    defaultValue={car.doors}
-                                    onBlur={doorsChangeHandler}
-                                    errors={errors.doors}
-                                />
-                            </div>
-                            <div className="form-group ml-2">
-                                <InputComponent
-                                    title="Luggage"
-                                    type="number"
-                                    name="luggage"
-                                    defaultValue={car.luggage}
-                                    onBlur={luggageChangeHandler}
-                                    errors={errors.luggage}
-                                />
-                            </div>
+                            <InputComponent
+                                form="form-group mr-2"
+                                title="Seats"
+                                type="number"
+                                name="seats"
+                                defaultValue={car.seats}
+                                onBlur={seatsChangeHandler}
+                                errors={errors.seats}
+                            />
+                            <InputComponent
+                                form="form-group ml-2"
+                                title="Doors"
+                                type="number"
+                                name="doors"
+                                defaultValue={car.doors}
+                                onBlur={doorsChangeHandler}
+                                errors={errors.doors}
+                            />
+                            <InputComponent
+                                form="form-group ml-2"
+                                title="Luggage"
+                                type="number"
+                                name="luggage"
+                                defaultValue={car.luggage}
+                                onBlur={luggageChangeHandler}
+                                errors={errors.luggage}
+                            />
                         </div>
                         <div className="d-flex">
                             <div className="form-group ml-2">
