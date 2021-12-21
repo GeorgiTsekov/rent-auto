@@ -2,10 +2,10 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import useCarState from "../../../hooks/useCarState";
 import *as carService from '../../../services/carService';
-import InputComponent from "../../Common/InputFormComponent/InputFormComponent";
+import InputFormComponent from "../../Common/InputFormComponent/InputFormComponent";
 import { carTypes, fuels, transmissions } from '../carConstants';
 import CarDataCheckboxesUpdate from "../CarData";
-import CarValidations from "../CarValidations";
+import CarValidations from "../../Common/Validations/CarValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 import CheckboxFormComponent from "../../Common/CheckboxFormComponent/CheckboxFormComponent";
 
@@ -62,7 +62,7 @@ const Edit = () => {
                 <div className="row no-gutters slider-text align-items-center">
                     <form className="request-form bg-primary" onSubmit={onCarEdit} method="PATCH">
                         <h2>Edit your car</h2>
-                        <InputComponent
+                        <InputFormComponent
                             form="form-group"
                             title="Image"
                             type="text"
@@ -71,7 +71,7 @@ const Edit = () => {
                             onBlur={imageChangeHandler}
                             errors={errors.image}
                         />
-                        <InputComponent
+                        <InputFormComponent
                             form="form-group"
                             title="Description"
                             type="text"
@@ -81,7 +81,7 @@ const Edit = () => {
                             errors={errors.description}
                         />
                         <div className="d-flex">
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group mr-2"
                                 title="Make"
                                 type="text"
@@ -90,7 +90,7 @@ const Edit = () => {
                                 onBlur={makeChangeHandler}
                                 errors={errors.make}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group mr-2"
                                 title="Model"
                                 type="text"
@@ -121,7 +121,7 @@ const Edit = () => {
                             </div>
                         </div>
                         <div className="d-flex">
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group mr-2"
                                 title="Price"
                                 type="number"
@@ -130,7 +130,7 @@ const Edit = () => {
                                 onBlur={priceChangeHandler}
                                 errors={errors.price}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group ml-2"
                                 title="Year"
                                 type="number"
@@ -139,7 +139,7 @@ const Edit = () => {
                                 onBlur={yearChangeHandler}
                                 errors={errors.year}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group ml-2"
                                 title="Km"
                                 type="number"
@@ -150,7 +150,7 @@ const Edit = () => {
                             />
                         </div>
                         <div className="d-flex">
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group mr-2"
                                 title="Seats"
                                 type="number"
@@ -159,7 +159,7 @@ const Edit = () => {
                                 onBlur={seatsChangeHandler}
                                 errors={errors.seats}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group ml-2"
                                 title="Doors"
                                 type="number"
@@ -168,7 +168,7 @@ const Edit = () => {
                                 onBlur={doorsChangeHandler}
                                 errors={errors.doors}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group ml-2"
                                 title="Luggage"
                                 type="number"

@@ -1,11 +1,22 @@
 import { useNavigate } from "react-router";
 
 import { useAuthContext } from "../../contexts/AuthContext";
+import { useNotificationContext, types } from "../../contexts/NotificationContext";
 import * as authService from '../../services/authService';
+import InputFormComponent from "../Common/InputFormComponent/InputFormComponent";
+import AuthValidations from "../Common/Validations/AuthValidations";
 
 const Register = () => {
     const { login } = useAuthContext();
+    const { addNotification } = useNotificationContext();
     const navigate = useNavigate();
+    const {
+        nameChangeHandler,
+        emailChangeHandler,
+        passwordChangeHandler,
+        rePasswordChangeHandler,
+        errors
+    } = AuthValidations();
 
     const onRegisterHandler = (e) => {
         e.preventDefault();
@@ -20,13 +31,12 @@ const Register = () => {
         authService.register(name, email, password, rePassword)
             .then((authData) => {
                 login(authData);
-
+                addNotification('You sign and logged in successfully!', types.success);
                 navigate('/');
             })
             .catch(err => {
                 console.log(err);
-                // TODO show notification
-                alert(err)
+                addNotification(err, types.error)
             })
     }
     return (
@@ -36,23 +46,43 @@ const Register = () => {
                 <div className="row no-gutters slider-text align-items-center">
                     <form className="request-form bg-primary" onSubmit={onRegisterHandler} method="POST">
                         <h2>Register your account</h2>
-                        <div className="form-group">
-                            <label htmlFor="name" className="label">Name</label>
-                            <input type="text" className="form-control" name="name" placeholder="Georgi Tsekov" />
-                        </div>
-                        <div className="form-group">
-                            <label htmlFor="email" className="label">Email</label>
-                            <input type="text" className="form-control" name="email" placeholder="georgi_tsekov@abv.bg" />
-                        </div>
+                        <InputFormComponent
+                            form="form-group"
+                            title="Name"
+                            type="text"
+                            name="name"
+                            placeholder="Pesho Petrov"
+                            onBlur={nameChangeHandler}
+                            errors={errors.name}
+                        />
+                        <InputFormComponent
+                            form="form-group"
+                            title="Email"
+                            type="text"
+                            name="email"
+                            placeholder="georgi_tsekov@abv.bg"
+                            onBlur={emailChangeHandler}
+                            errors={errors.email}
+                        />
                         <div className="d-flex">
-                            <div className="form-group mr-2">
-                                <label htmlFor="password" className="label">Password</label>
-                                <input type="password" className="form-control" name="password" placeholder="password" />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="rePassword" className="label">Repeat Password</label>
-                                <input type="password" className="form-control" name="rePassword" placeholder="repeat password" />
-                            </div>
+                            <InputFormComponent
+                                form="form-group mr-2"
+                                title="Password"
+                                type="password"
+                                name="password"
+                                placeholder="password"
+                                onBlur={passwordChangeHandler}
+                                errors={errors.password}
+                            />
+                            <InputFormComponent
+                                form="form-group ml-2"
+                                title="Repeat Password"
+                                type="password"
+                                name="rePassword"
+                                placeholder="repeat password"
+                                onBlur={rePasswordChangeHandler}
+                                errors={errors.rePassword}
+                            />
                         </div>
                         <div className="form-group">
                             <input type="submit" value="Register Your Account Now" className="btn btn-secondary py-3 px-4" />

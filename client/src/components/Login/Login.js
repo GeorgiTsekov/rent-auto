@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { useAuthContext } from "../../contexts/AuthContext";
 import { useNotificationContext, types } from "../../contexts/NotificationContext";
 import * as authService from '../../services/authService';
+import InputFormComponent from "../Common/InputFormComponent/InputFormComponent";
 
 const Login = () => {
     const { login } = useAuthContext();
@@ -20,7 +21,7 @@ const Login = () => {
         authService.login(email, password)
             .then((authData) => {
                 login(authData);
-                addNotification('You logged in successully!', types.success);
+                addNotification('You logged in successfully!', types.success);
                 navigate('/');
             })
             .catch(err => {
@@ -35,14 +36,20 @@ const Login = () => {
                 <div className="row no-gutters slider-text align-items-center">
                     <form className="request-form bg-primary" onSubmit={onLoginHandler} method="POST">
                         <h2>Login your account</h2>
-                        <div className="form-group">
-                            <label htmlFor="email" className="label">Email</label>
-                            <input type="text" className="form-control" name="email" placeholder="georgi_tsekov@abv.bg" />
-                        </div>
-                        <div className="form-group mr-2">
-                            <label htmlFor="password" className="label">Password</label>
-                            <input type="password" className="form-control" name="password" placeholder="password" />
-                        </div>
+                        <InputFormComponent
+                            form="form-group"
+                            title="Email"
+                            type="text"
+                            name="email"
+                            placeholder="georgi_tsekov@abv.bg"
+                        />
+                        <InputFormComponent
+                            form="form-group mr-2"
+                            title="Password"
+                            type="password"
+                            name="password"
+                            placeholder="password"
+                        />
                         <div className="form-group">
                             <input type="submit" value="Login Your Account Now" className="btn btn-secondary py-3 px-4" />
                         </div>

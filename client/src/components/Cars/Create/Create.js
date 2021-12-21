@@ -4,9 +4,9 @@ import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../../../contexts/AuthContext";
 import *as carService from '../../../services/carService';
 import { carTypes, fuels, transmissions } from '../carConstants';
-import InputComponent from "../../Common/InputFormComponent/InputFormComponent";
+import InputFormComponent from "../../Common/InputFormComponent/InputFormComponent";
 import CarDataCheckboxesUpdate from "../CarData";
-import CarValidations from "../CarValidations";
+import CarValidations from "../../Common/Validations/CarValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 import CheckboxFormComponent from "../../Common/CheckboxFormComponent/CheckboxFormComponent";
 
@@ -51,7 +51,7 @@ const Create = () => {
                 <div className="row no-gutters slider-text align-items-center">
                     <form className="request-form bg-primary" onSubmit={onCarCreate} method="POST">
                         <h2>Create your car</h2>
-                        <InputComponent
+                        <InputFormComponent
                             form="form-group"
                             title="Image"
                             type="text"
@@ -60,7 +60,7 @@ const Create = () => {
                             onBlur={imageChangeHandler}
                             errors={errors.image}
                         />
-                        <InputComponent
+                        <InputFormComponent
                             form="form-group"
                             title="Description"
                             type="text"
@@ -70,7 +70,7 @@ const Create = () => {
                             errors={errors.description}
                         />
                         <div className="d-flex">
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group mr-2"
                                 title="Make"
                                 type="text"
@@ -79,7 +79,7 @@ const Create = () => {
                                 onBlur={makeChangeHandler}
                                 errors={errors.make}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group mr-2"
                                 title="Model"
                                 type="text"
@@ -110,7 +110,7 @@ const Create = () => {
                             </div>
                         </div>
                         <div className="d-flex">
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group mr-2"
                                 title="Price"
                                 type="number"
@@ -119,7 +119,7 @@ const Create = () => {
                                 onBlur={priceChangeHandler}
                                 errors={errors.price}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group ml-2"
                                 title="Year"
                                 type="number"
@@ -128,7 +128,7 @@ const Create = () => {
                                 onBlur={yearChangeHandler}
                                 errors={errors.year}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group ml-2"
                                 title="Km"
                                 type="number"
@@ -139,7 +139,7 @@ const Create = () => {
                             />
                         </div>
                         <div className="d-flex">
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group mr-2"
                                 title="Seats"
                                 type="number"
@@ -148,7 +148,7 @@ const Create = () => {
                                 onBlur={seatsChangeHandler}
                                 errors={errors.seats}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group ml-2"
                                 title="Doors"
                                 type="number"
@@ -157,7 +157,7 @@ const Create = () => {
                                 onBlur={doorsChangeHandler}
                                 errors={errors.doors}
                             />
-                            <InputComponent
+                            <InputFormComponent
                                 form="form-group ml-2"
                                 title="Luggage"
                                 type="number"
