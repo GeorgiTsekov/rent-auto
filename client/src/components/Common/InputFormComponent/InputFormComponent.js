@@ -1,7 +1,7 @@
 import React from "react";
 import { Alert } from "react-bootstrap";
 
-const InputComponent = ({ form, title, type, name, defaultValue, onBlur, errors }) => {
+const InputFormComponent = ({ form, title, type, name, defaultValue, onBlur, errors }) => {
     return (
         <>
             <div className={form}>
@@ -14,4 +14,4 @@ const InputComponent = ({ form, title, type, name, defaultValue, onBlur, errors 
     )
 }
 
-export default InputComponent;
+export default InputFormComponent;

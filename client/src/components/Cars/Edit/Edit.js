@@ -2,11 +2,12 @@ import { useNavigate, useParams } from "react-router-dom";
 
 import useCarState from "../../../hooks/useCarState";
 import *as carService from '../../../services/carService';
-import InputComponent from "../../Common/InputComponent/InputComponent";
+import InputComponent from "../../Common/InputFormComponent/InputFormComponent";
 import { carTypes, fuels, transmissions } from '../carConstants';
 import CarData from "../CarData";
 import CarValidations from "../CarValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
+import CheckboxFormComponent from "../../Common/CheckboxFormComponent/CheckboxFormComponent";
 
 const Edit = () => {
     const navigate = useNavigate();
@@ -179,40 +180,56 @@ const Edit = () => {
                             />
                         </div>
                         <div className="d-flex">
-                            <div className="form-group ml-2">
-                                <label htmlFor="remoteCentralLocking" className="label">Central Locking</label>
-                                <input type="checkbox" className="form-control-checkbox" name="remoteCentralLocking" defaultChecked={car.remoteCentralLocking} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="audioInput" className="label">audio Input</label>
-                                <input type="checkbox" className="form-control-checkbox" name="audioInput" defaultChecked={car.audioInput} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="childSeat" className="label">ChildSeat</label>
-                                <input type="checkbox" className="form-control-checkbox" name="childSeat" defaultChecked={car.childSeat} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="music" className="label">music</label>
-                                <input type="checkbox" className="form-control-checkbox" name="music" defaultChecked={car.music} />
-                            </div>
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Central Locking"
+                                name="remoteCentralLocking"
+                                defaultChecked={car.remoteCentralLocking}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Audio Input"
+                                name="audioInput"
+                                defaultChecked={car.audioInput}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="ChildSeat"
+                                name="childSeat"
+                                defaultChecked={car.childSeat}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Music"
+                                name="music"
+                                defaultChecked={car.music}
+                            />
                         </div>
                         <div className="d-flex">
-                            <div className="form-group ml-2">
-                                <label htmlFor="onboardComputer" className="label">board Computer</label>
-                                <input type="checkbox" className="form-control-checkbox" name="onboardComputer" defaultChecked={car.onboardComputer} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="airConditioner" className="label">airConditioner</label>
-                                <input type="checkbox" className="form-control-checkbox" name="airConditioner" defaultChecked={car.airConditioner} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="bluetooth" className="label">bluetooth</label>
-                                <input type="checkbox" className="form-control-checkbox" name="bluetooth" defaultChecked={car.bluetooth} />
-                            </div>
-                            <div className="form-group ml-2">
-                                <label htmlFor="gps" className="label">Gps</label>
-                                <input type="checkbox" className="form-control-checkbox" name="gps" defaultChecked={car.gps} />
-                            </div>
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Board Computer"
+                                name="onboardComputer"
+                                defaultChecked={car.onboardComputer}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="AirConditioner"
+                                name="airConditioner"
+                                defaultChecked={car.airConditioner}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Bluetooth"
+                                name="bluetooth"
+                                defaultChecked={car.bluetooth}
+                            />
+                            <CheckboxFormComponent
+                                form="form-group ml-2"
+                                title="Gps"
+                                name="gps"
+                                defaultChecked={car.gps}
+                            />
                         </div>
                         <div className="form-group">
                             <input type="submit" value="Edit A Car Now" className="btn btn-secondary py-3 px-4" />
