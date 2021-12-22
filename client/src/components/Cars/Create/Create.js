@@ -31,7 +31,6 @@ const Create = () => {
     const onCarCreate = (e) => {
         e.preventDefault();
         let carData = Object.fromEntries(new FormData(e.currentTarget));
-        console.log(carData)
         let updatedCarData = CarDataCheckboxesUpdate(carData);
         carService.create(updatedCarData, user.accessToken)
             .then(result => {

@@ -19,6 +19,8 @@ import Notification from './components/Common/Notification/Notification';
 import AdminGuardedRoute from './components/Common/AdminGuardedRoute';
 import PrivateRoute from './components/Common/PrivateRoute';
 import NotPrivedRoute from './components/Common/NotPrivedRoute';
+import SearchAvailable from './components/Cars/SearchAvailable/SearchAvailable';
+import AvailableCars from './components/Cars/AvailableCars';
 
 function App() {
   return (
@@ -34,6 +36,8 @@ function App() {
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/mobile/car/all" element={<Cars />} />
               <Route path="/mobile/car/:carId" element={<Details />} />
+              <Route path="/mobile/car/available" element={<SearchAvailable />} />
+              <Route path="/mobile/car/availableCars" element={<AvailableCars />} />
               <Route element={<NotPrivedRoute />}>
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />

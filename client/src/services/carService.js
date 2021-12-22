@@ -4,6 +4,8 @@ const baseUrl = 'http://localhost:5000/mobile/car';
 
 export const getAll = () => request.get(`${baseUrl}/all`);
 
+export const available = async (carData) => request.post(`${baseUrl}/available`, carData);
+
 export const getOne = (carId) => {
     return fetch(`${baseUrl}/${carId}`)
         .then(res => res.json());
