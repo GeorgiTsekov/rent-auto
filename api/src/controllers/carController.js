@@ -38,8 +38,8 @@ router.patch('/:carId/edit', auth, async (req, res, next) => {
 
 router.patch('/:carId/addTenant', auth, async (req, res, next) => {
     try {
-        const { dateFrom, dateTo } = req.body;
-        const car = await carService.addTenant(req.params.carId, req.user?._id, { dateFrom, dateTo });
+        const { dateFrom, dateTo, pickUpLocation, dropOffLocation } = req.body;
+        const car = await carService.addTenant(req.params.carId, req.user?._id, { dateFrom, dateTo, pickUpLocation, dropOffLocation });
         res.status(200).json({ message: `${req.user?.name} successfully rented this ${car.make} from ${dateFrom} to ${dateTo}` });
     } catch (error) {
         next(error);

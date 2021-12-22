@@ -127,9 +127,21 @@ const carSchema = new mongoose.Schema({
             },
             dateFrom: {
                 type: Date,
+                required: true,
             },
             dateTo: {
                 type: Date,
+                required: true,
+            },
+            pickUpLocation: {
+                type: String,
+                enum: ['Sofia', 'Varna', 'Plovdiv', 'Burgas'],
+                required: true,
+            },
+            dropOffLocation: {
+                type: String,
+                enum: ['Sofia', 'Varna', 'Plovdiv', 'Burgas'],
+                required: true,
             }
         }
     ]

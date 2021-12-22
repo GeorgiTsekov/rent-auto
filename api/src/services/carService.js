@@ -30,22 +30,44 @@ exports.addTenant = async (carId, userId, data) => {
     const car = await this.getOne(carId);
     const from = data.dateFrom;
     const to = data.dateTo;
+    const pickUpLocation = data.pickUpLocation;
+    const dropOffLocation = data.dropOffLocation;
+    const dateNow = new Date(Date.now()).toJSON().slice(0, 10);
+
+    if(!isValidDate(from)) {
+        throw { message: 'Date shout be in this format 2021-12-30(Year-month-day)!'}
+    }
+
+    if(!isValidDate(to)) {
+        throw { message: 'Date shout be in this format 2021-12-30(Year-month-day)!'}
+    }
+
+    if (from < dateNow) {
+        throw { message: 'Pick-Up Date shoult be equal or bigger then Date today' }
+    }
+
+    if (from > to) {
+        throw { message: 'Pick-Up Date shoult be equal or smaller then Drop-Off Date' }
+    }
+
+    function isValidDate(value) {
+        if (!value.match(/^\d{4}-\d{2}-\d{2}$/)) {
+            return false;
+        }
+
+        const date = new Date(value);
+        if (!date.getTime()) return false;
+        return date.toISOString().slice(0, 10) === value;
+    }
 
     if (car.tenants) {
         car.tenants.forEach(savedDate => {
             const dateFrom = new Date(savedDate.dateFrom).toJSON().slice(0, 10);
             const dateTo = new Date(savedDate.dateTo).toJSON().slice(0, 10);
-            const dateNow = new Date(Date.now()).toJSON().slice(0, 10);
 
-            if (from < dateNow) {
-                throw { message: 'from shoult be bigger then today' }
-            }
-            if (from > to) {
-                throw { message: 'from shoult be smaller then to' }
-            }
             if ((from >= dateFrom && from <= dateTo)
                 || (to >= dateFrom && to <= dateTo)) {
-                throw { message: `This dates: from ${dateFrom} to ${dateTo} are saved from another tenant` }
+                throw { message: `This dates: from ${dateFrom} to ${dateTo} are already rented! Change the dates or the car ${car.make} please` }
             }
         });
     }
@@ -53,7 +75,9 @@ exports.addTenant = async (carId, userId, data) => {
     const newTenant = {
         tenantId: userId,
         dateFrom: from,
-        dateTo: to
+        dateTo: to,
+        pickUpLocation,
+        dropOffLocation
     }
 
     car.tenants.push(newTenant);
