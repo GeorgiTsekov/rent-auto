@@ -20,3 +20,10 @@ export const transmissions = [
     { value: "Manual" },
     { value: "Automat" },
 ];
+
+export const towns = [
+    { value: "Sofia" },
+    { value: "Plovdiv" },
+    { value: "Varna" },
+    { value: "Burgas" }
+];

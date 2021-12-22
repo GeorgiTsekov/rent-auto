@@ -46,6 +46,8 @@ export const likes = async (carId, token) => {
     }
 }
 
+export const rent = async (carData, carId) => request.patch(`${baseUrl}/${carId}/addTenant`, carData);
+
 export const edit = async (carData, carId) => request.patch(`${baseUrl}/${carId}/edit`, carData);
 
 export const deleteCar = async (carId, token) => {
