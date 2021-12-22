@@ -12,6 +12,16 @@ router.get('/all', async (req, res, next) => {
     }
 });
 
+router.post('/available', async (req, res, next) => {
+    try {
+        const { dateFrom, dateTo } = req.body;
+        const cars = await carService.getAvailable({ dateFrom, dateTo });
+        res.json(cars);
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.get('/:carId', async (req, res, next) => {
     try {
         const car = await carService.getOne(req.params.carId);
