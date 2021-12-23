@@ -28,7 +28,7 @@ const Register = () => {
         let password = formData.get('password');
         let rePassword = formData.get('rePassword');
 
-        authService.register(name, email, password, rePassword)
+        authService.register({ name, email, password, rePassword })
             .then((authData) => {
                 login(authData);
                 addNotification('You sign and logged in successfully!', types.success);

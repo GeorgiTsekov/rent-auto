@@ -18,7 +18,7 @@ const Login = () => {
         let email = formData.get('email');
         let password = formData.get('password');
 
-        authService.login(email, password)
+        authService.login({email, password})
             .then((authData) => {
                 login(authData);
                 addNotification('You logged in successfully!', types.success);

@@ -19,9 +19,9 @@ const Details = () => {
     const deleteHandler = (e) => {
         e.preventDefault();
 
-        carService.deleteCar(carId, user.accessToken)
+        carService.deleteCar(carId)
             .then(result => {
-                addNotification(result.message, types.success)
+                addNotification("You delete this car successfully", types.success)
                 navigate('/mobile/car/all');
             })
             .catch(err => {
@@ -42,7 +42,7 @@ const Details = () => {
     const likeHandler = (e) => {
         e.preventDefault();
 
-        carService.likes(carId, user.accessToken)
+        carService.likes(carId)
             .then(likes => {
                 setCar(state => ({
                     ...state,
@@ -51,7 +51,7 @@ const Details = () => {
                 addNotification("You like this car successfully", types.success)
             })
             .catch(err => {
-                addNotification(err, types.error)
+                addNotification(err.message, types.error)
                 console.log(err);
             })
     }

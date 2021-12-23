@@ -44,6 +44,7 @@ function getToken() {
     }
 }
 
+export const deleteCar = request.bind(null, 'DELETE');
 export const get = request.bind(null, 'GET');
 export const patch = request.bind(null, 'PATCH');
 export const post = request.bind(null, 'POST');
