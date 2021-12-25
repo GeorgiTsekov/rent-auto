@@ -32,8 +32,10 @@ exports.getAvailable = async (data) => {
                     const dateFrom = new Date(savedDate.dateFrom).toJSON().slice(0, 10);
                     const dateTo = new Date(savedDate.dateTo).toJSON().slice(0, 10);
                     if ((from >= dateFrom && from <= dateTo)
-                        || (to >= dateFrom && to <= dateTo)) {
-                        throw { message: `This dates: from ${dateFrom} to ${dateTo} are already rented! Change the dates or the car ${car.make} please` }
+                        || (to >= dateFrom && to <= dateTo)
+                        || (to >= dateTo && from <= dateTo)
+                        || (from <= dateFrom && to >= dateFrom)) {
+                        throw { message: `${car.make} is not available for this date` }
                     }
                 });
                 result.push(car);
@@ -100,7 +102,9 @@ exports.addTenant = async (carId, userId, data) => {
             const dateTo = new Date(savedDate.dateTo).toJSON().slice(0, 10);
 
             if ((from >= dateFrom && from <= dateTo)
-                || (to >= dateFrom && to <= dateTo)) {
+                || (to >= dateFrom && to <= dateTo)
+                || (to >= dateTo && from <= dateTo)
+                || (from <= dateFrom && to >= dateFrom)) {
                 throw { message: `This dates: from ${dateFrom} to ${dateTo} are already rented! Change the dates or the car ${car.make} please` }
             }
         });
