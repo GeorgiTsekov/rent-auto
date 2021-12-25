@@ -21,7 +21,7 @@ export const AuthProvider = ({ children }) => {
     setUser(initialAuthState);
   };
     return (
-        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: user.email, isAdministrator: user.email === 'Gosho123@abv.bg' }}>
+        <AuthContext.Provider value={{ user, login, logout, isAuthenticated: user.email, isAdministrator: user.email === 'Admin66@gmail.com' }}>
             {children}
         </AuthContext.Provider>
     )

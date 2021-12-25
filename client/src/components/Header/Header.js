@@ -1,5 +1,5 @@
 import { useAuthContext } from "../../contexts/AuthContext";
-import LinkComponent from "../Link/Link";
+import LinkComponent from "../LinkComponent/LinkComponent";
 
 const Header = () => {
     const { user, isAdministrator, isAuthenticated } = useAuthContext();
@@ -13,14 +13,14 @@ const Header = () => {
 
     let userNavigation = (
         <ul className="navbar-nav ml-auto">
-            <LinkComponent href="/auth/profile" title={`Welcome, ${user.name}`} type="nav" />
+            <LinkComponent href="#" title={`Welcome, ${user.name}`} type="nav" />
             <LinkComponent href="/auth/logout" title="Logout" type="nav" />
         </ul>
     )
 
     let administratorNavigation = (
         <ul className="navbar-nav ml-auto">
-            <LinkComponent href="/auth/profile" title={`Welcome, ${user.name}`} type="nav" />
+            <LinkComponent href="#" title={`Welcome, ${user.name}`} type="nav" />
             <LinkComponent href="/mobile/car/create" title="Create a Car" type="nav" />
             <LinkComponent href="/auth/logout" title="Logout" type="nav" />
         </ul>
@@ -38,7 +38,7 @@ const Header = () => {
                     <ul className="navbar-nav ml-auto">
                         <LinkComponent href="/" title="Home" type="nav" />
                         <LinkComponent href="/about" title="About" type="nav" />
-                        <LinkComponent href="/mobile/car/all" title="All Cars" type="nav" />
+                        <LinkComponent href="/mobile/car/all" title="Catalog" type="nav" />
                         <LinkComponent href="/mobile/car/available" title="Search All Available Cars" type="nav" />
                     </ul>
                     {isAuthenticated ? (isAdministrator ? administratorNavigation : userNavigation) : guestNavigation}

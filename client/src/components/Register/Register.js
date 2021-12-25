@@ -32,7 +32,7 @@ const Register = () => {
             .then((authData) => {
                 login(authData);
                 addNotification('You sign and logged in successfully!', types.success);
-                navigate('/');
+                navigate('/mobile/car/all');
             })
             .catch(err => {
                 console.log(err);

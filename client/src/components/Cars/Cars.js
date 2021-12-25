@@ -1,13 +1,15 @@
 import React, { useEffect, useState } from "react";
+import { useLocation } from "react-router-dom";
 
 import * as carService from '../../services/carService';
 import Car from "./Car/Car";
 
 const Cars = () => {
-    const [cars, setCars] = useState([]);
-
+    const { state } = useLocation();
+    const [cars, setCars] = useState(state ? state.cars : []);
     useEffect(() => {
-        carService.getAll()
+        if (cars.length === 0) {
+            carService.getAll()
             .then(result => {
 
                 setCars(result);
@@ -15,7 +17,8 @@ const Cars = () => {
             .catch(err => {
                 console.log(err);
             })
-    }, []);
+        }
+    }, [cars]);
     return (
         <div>
             <section className="hero-wrap hero-wrap-2" style={{ backgroundImage: "url(/images/bg_3.jpg)" }} data-stellar-background-ratio="0.5">
