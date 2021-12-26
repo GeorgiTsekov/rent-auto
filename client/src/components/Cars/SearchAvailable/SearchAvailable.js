@@ -20,6 +20,7 @@ const SearchAvailable = () => {
 
         carService.available(carData)
             .then((result) => {
+                console.log(result)
                 navigate(`/mobile/car/all`, { state: { cars: result } });
                 addNotification(result.message, types.success)
             })

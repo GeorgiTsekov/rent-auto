@@ -8,7 +8,7 @@ const Cars = () => {
     const { state } = useLocation();
     const [cars, setCars] = useState(state ? state.cars : []);
     useEffect(() => {
-        if (cars.length === 0) {
+        if (!state) {
             carService.getAll()
             .then(result => {
 
@@ -18,7 +18,7 @@ const Cars = () => {
                 console.log(err);
             })
         }
-    }, [cars]);
+    }, [state]);
     return (
         <div>
             <section className="hero-wrap hero-wrap-2" style={{ backgroundImage: "url(/images/bg_3.jpg)" }} data-stellar-background-ratio="0.5">
@@ -48,7 +48,7 @@ const Cars = () => {
                                 cars.map((x) => <Car key={x._id} car={x} />)
                             }
                         </div>
-                    ) : <p>no cars</p>}
+                    ) : <p>{state ? "no available cars for this dates" : "no cars"}</p>}
                 </div>
             </section>
         </div>
