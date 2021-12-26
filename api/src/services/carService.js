@@ -1,6 +1,6 @@
 const Car = require("../models/Car");
 
-exports.getAll = () => Car.find();
+exports.getAll = () => Car.find().sort({ createdAt: 'desc'});
 
 exports.getAvailable = async (data) => {
     const from = data.dateFrom;
@@ -31,7 +31,6 @@ exports.getAvailable = async (data) => {
                 car.tenants.forEach(savedDate => {
                     const dateFrom = new Date(savedDate.dateFrom).toJSON().slice(0, 10);
                     const dateTo = new Date(savedDate.dateTo).toJSON().slice(0, 10);
-                    console.log(`(${from} >= ${dateFrom} && ${from} <= ${dateTo}) || (${to} >= ${dateFrom} && ${to} <= ${dateTo})`);
                     if ((from >= dateFrom && from <= dateTo)
                         || (to >= dateFrom && to <= dateTo)
                         || (to >= dateTo && from <= dateTo)
