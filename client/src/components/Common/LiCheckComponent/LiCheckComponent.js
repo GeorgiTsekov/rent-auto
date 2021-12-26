@@ -1,6 +1,6 @@
 import React from "react";
 
-const LiComponent = ({ title, href, type }) => {
+const LiCheckComponent = ({ title, type }) => {
     let checked = (
         <li className="check">
             <span className="ion-ios-checkmark"></span><span><span>&#10003;</span></span> {title}
@@ -18,4 +18,4 @@ const LiComponent = ({ title, href, type }) => {
     )
 }
 
-export default LiComponent;
+export default LiCheckComponent;

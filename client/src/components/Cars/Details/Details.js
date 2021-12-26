@@ -3,10 +3,11 @@ import { Link, useNavigate, useParams } from 'react-router-dom';
 
 import { useAuthContext } from "../../../contexts/AuthContext";
 import * as carService from "../../../services/carService";
-import LiComponent from "../../LiComponent/LiComponent";
+import LiCheckComponent from "../../Common/LiCheckComponent/LiCheckComponent";
 import ConfirmDialog from '../../Common/ConfirmDialog/ConfirmDialog';
 import useCarState from "../../../hooks/useCarState";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
+import CarDetailsComponent from "../../Common/CarDetailsComponent/CarDetailsComponent";
 
 const Details = () => {
     const navigate = useNavigate();
@@ -100,115 +101,16 @@ const Details = () => {
                     </div>
 
                     <div className="row">
-                        <div className="col-md d-flex align-self-stretch ">
-                            <div className="media block-6 services">
-                                <div className="media-body py-md-4">
-                                    <div className="d-flex mb-3 align-items-center">
-                                        <div className="icon d-flex align-items-center justify-content-center"><span className="flaticon-dashboard"></span></div>
-                                        <div className="text">
-                                            <h3 className="heading mb-0 pl-3">
-                                                Km
-                                                <span>{car.mileage}</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md d-flex align-self-stretch ">
-                            <div className="media block-6 services">
-                                <div className="media-body py-md-4">
-                                    <div className="d-flex mb-3 align-items-center">
-                                        <div className="icon d-flex align-items-center justify-content-center"><span className="flaticon-pistons"></span></div>
-                                        <div className="text">
-                                            <h3 className="heading mb-0 pl-3">
-                                                Transmission
-                                                <span>{car.transmission}</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md d-flex align-self-stretch ">
-                            <div className="media block-6 services">
-                                <div className="media-body py-md-4">
-                                    <div className="d-flex mb-3 align-items-center">
-                                        <div className="icon d-flex align-items-center justify-content-center"><span className="flaticon-car-seat"></span></div>
-                                        <div className="text">
-                                            <h3 className="heading mb-0 pl-3">
-                                                Seats
-                                                <span>{car.seats}</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md d-flex align-self-stretch ">
-                            <div className="media block-6 services">
-                                <div className="media-body py-md-4">
-                                    <div className="d-flex mb-3 align-items-center">
-                                        <div className="icon d-flex align-items-center justify-content-center"><span className="flaticon-backpack"></span></div>
-                                        <div className="text">
-                                            <h3 className="heading mb-0 pl-3">
-                                                Luggage
-                                                <span>{car.luggage}</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <CarDetailsComponent title="Km" icon="&#9829;" detail={car.mileage} />
+                        <CarDetailsComponent title="Transmission" icon="&#9829;" detail={car.transmission} />
+                        <CarDetailsComponent title="Seats" icon="&#9829;" detail={car.seats} />
+                        <CarDetailsComponent title="Luggage" icon="&#9829;" detail={car.luggage} />
+
                     </div>
                     <div className="row">
-                        <div className="col-md d-flex align-self-stretch ">
-                            <div className="media block-6 services">
-                                <div className="media-body py-md-4">
-                                    <div className="d-flex mb-3 align-items-center">
-                                        <div className="icon d-flex align-items-center justify-content-center"><span className="flaticon-diesel"></span></div>
-                                        <div className="text">
-                                            <h3 className="heading mb-0 pl-3">
-                                                Fuel
-                                                <span>{car.fuel}</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md d-flex align-self-stretch ">
-                            <div className="media block-6 services">
-                                <div className="media-body py-md-4">
-                                    <div className="d-flex mb-3 align-items-center">
-                                        <div className="icon d-flex align-items-center justify-content-center"><span className="flaticon-diesel"></span></div>
-                                        <div className="text">
-                                            <h3 className="heading mb-0 pl-3">
-                                                Doors
-                                                <span>{car.doors}</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="col-md d-flex align-self-stretch ">
-                            <div className="media block-6 services">
-                                <div className="media-body py-md-4">
-                                    <div className="d-flex mb-3 align-items-center">
-                                        <div className="icon d-flex align-items-center justify-content-center">
-                                            <span>&#9829;</span>
-                                        </div>
-                                        <div className="text">
-                                            <h3 className="heading mb-0 pl-3">
-                                                Likes
-                                                <span>{car.likes?.length}</span>
-                                            </h3>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        <CarDetailsComponent title="Fuel" icon="&#9829;" detail={car.fuel} />
+                        <CarDetailsComponent title="Doors" icon="&#9829;" detail={car.doors} />
+                        <CarDetailsComponent title="Likes" icon="&#9829;" detail={car.likes?.length} />
                     </div>
                     <div className="row">
                         <div className="col-md-12 pills">
@@ -228,18 +130,18 @@ const Details = () => {
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <ul className="features">
-                                                    <LiComponent title="AirConditioner" type={car.airConditioner} />
-                                                    <LiComponent title="Child Seat" type={car.childSeat} />
-                                                    <LiComponent title="GPS" type={car.gps} />
-                                                    <LiComponent title="Music" type={car.music} />
+                                                    <LiCheckComponent title="AirConditioner" type={car.airConditioner} />
+                                                    <LiCheckComponent title="Child Seat" type={car.childSeat} />
+                                                    <LiCheckComponent title="GPS" type={car.gps} />
+                                                    <LiCheckComponent title="Music" type={car.music} />
                                                 </ul>
                                             </div>
                                             <div className="col-md-6">
                                                 <ul className="features">
-                                                    <LiComponent title="Bluetooth" type={car.bluetooth} />
-                                                    <LiComponent title="Onboard computer" type={car.onboardComputer} />
-                                                    <LiComponent title="Audio input" type={car.audioInput} />
-                                                    <LiComponent title="Remote central locking" type={car.remoteCentralLocking} />
+                                                    <LiCheckComponent title="Bluetooth" type={car.bluetooth} />
+                                                    <LiCheckComponent title="Onboard computer" type={car.onboardComputer} />
+                                                    <LiCheckComponent title="Audio input" type={car.audioInput} />
+                                                    <LiCheckComponent title="Remote central locking" type={car.remoteCentralLocking} />
                                                 </ul>
                                             </div>
                                         </div>
