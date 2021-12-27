@@ -9,16 +9,15 @@ import Edit from './components/Cars/Edit/Edit';
 import Details from './components/Cars/Details/Details';
 import RentACar from './components/Cars/RentACar/RentACar';
 import Header from './components/Header/Header';
-import Main from './components/Main/Main';
 import Footer from './components/Footer/Footer';
 import Login from './components/Login/Login';
 import Logout from './components/Logout/Logout';
 import Register from './components/Register/Register';
 import { NotificationProvider } from './contexts/NotificationContext';
 import Notification from './components/Common/Notification/Notification';
-import AdminGuardedRoute from './components/Common/AdminGuardedRoute';
-import PrivateRoute from './components/Common/PrivateRoute';
-import NotPrivedRoute from './components/Common/NotPrivedRoute';
+import AdminGuardedRoute from './components/Common/GuardedRoutes/AdminGuardedRoute';
+import PrivateRoute from './components/Common/GuardedRoutes/PrivateRoute';
+import NotPrivedRoute from './components/Common/GuardedRoutes/NotPrivedRoute';
 import SearchAvailable from './components/Cars/SearchAvailable/SearchAvailable';
 
 function App() {
@@ -30,12 +29,11 @@ function App() {
           <Notification />
           <main>
             <Routes>
-              <Route path="/" element={<Main />} />
+              <Route path="/" element={<SearchAvailable />} />
               <Route path="/about" element={<About />} />
               <Route path="/contacts" element={<Contacts />} />
               <Route path="/mobile/car/all" element={<Cars />} />
               <Route path="/mobile/car/:carId" element={<Details />} />
-              <Route path="/mobile/car/available" element={<SearchAvailable />} />
               <Route element={<NotPrivedRoute />}>
               <Route path="/auth/login" element={<Login />} />
               <Route path="/auth/register" element={<Register />} />

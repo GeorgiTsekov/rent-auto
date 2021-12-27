@@ -1,5 +1,5 @@
 import { useAuthContext } from "../../contexts/AuthContext";
-import LinkComponent from "../LinkComponent/LinkComponent";
+import LinkComponent from "../Common/LinkComponent/LinkComponent";
 
 const Header = () => {
     const { user, isAdministrator, isAuthenticated } = useAuthContext();
@@ -39,7 +39,6 @@ const Header = () => {
                         <LinkComponent href="/" title="Home" type="nav" />
                         <LinkComponent href="/about" title="About" type="nav" />
                         <LinkComponent href="/mobile/car/all" title="Catalog" type="nav" />
-                        <LinkComponent href="/mobile/car/available" title="Search All Available Cars" type="nav" />
                     </ul>
                     {isAuthenticated ? (isAdministrator ? administratorNavigation : userNavigation) : guestNavigation}
                 </div>

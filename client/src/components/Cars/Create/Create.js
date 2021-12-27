@@ -38,8 +38,8 @@ const Create = () => {
                 navigate('/mobile/car/all');
             })
             .catch(err => {
-                console.log(err);
-                addNotification(err, types.error)
+                console.log(err.message);
+                addNotification(err.message, types.error)
             })
     }
 

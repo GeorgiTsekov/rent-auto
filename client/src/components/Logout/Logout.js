@@ -16,8 +16,8 @@ const Logout = () => {
                 addNotification('You sign out successfully!', types.success);
                 navigate('/')
             }).catch(err => {
-                console.log(err);
-                addNotification(err, types.error)
+                console.log(err.message);
+                addNotification(err.message, types.error)
             })
     }, [logout, user.accessToken, navigate, addNotification]);
 
