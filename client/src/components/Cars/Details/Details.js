@@ -101,16 +101,16 @@ const Details = () => {
                     </div>
 
                     <div className="row">
-                        <CarDetailsComponent title="Km" icon="&#9829;" detail={car.mileage} />
-                        <CarDetailsComponent title="Transmission" icon="&#9829;" detail={car.transmission} />
-                        <CarDetailsComponent title="Seats" icon="&#9829;" detail={car.seats} />
-                        <CarDetailsComponent title="Luggage" icon="&#9829;" detail={car.luggage} />
+                        <CarDetailsComponent title="Km" icon="&#x339E;" detail={car.mileage} />
+                        <CarDetailsComponent title="Transmission" icon="&#128663;" detail={car.transmission} />
+                        <CarDetailsComponent title="Seats" icon="&#128186;" detail={car.seats} />
+                        <CarDetailsComponent title="Luggage" icon="&#x1F6C5;" detail={car.luggage} />
 
                     </div>
                     <div className="row">
-                        <CarDetailsComponent title="Fuel" icon="&#9829;" detail={car.fuel} />
-                        <CarDetailsComponent title="Doors" icon="&#9829;" detail={car.doors} />
-                        <CarDetailsComponent title="Likes" icon="&#9829;" detail={car.likes?.length} />
+                        <CarDetailsComponent title="Fuel" icon="&#9981;" detail={car.fuel} />
+                        <CarDetailsComponent title="Doors" icon="&#128682;" detail={car.doors} />
+                        <CarDetailsComponent title="Likes" icon="&#10084;" detail={car.likes?.length} />
                     </div>
                     <div className="row">
                         <div className="col-md-12 pills">

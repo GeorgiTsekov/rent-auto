@@ -5,7 +5,7 @@ const { auth } = require('../middlewares/authMiddleware');
 
 router.post('/login', async (req, res, next) => {
     const { email, password } = req.body;
-    // test
+
     try {
         const { user, accessToken } = await authService.login({ email, password });
         res.json({
@@ -32,7 +32,6 @@ router.post('/register', async (req, res, next) => {
 
         let { user, accessToken } = await authService.login({ email, password });
 
-        // res.header("Authorization", token).send(user);
         res.json({
             _id: user._id,
             name: user.name,
