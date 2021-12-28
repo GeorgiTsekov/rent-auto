@@ -1,13 +1,25 @@
 import React from "react";
 
 const CheckboxFormComponent = ({ form, title, name, defaultChecked, value }) => {
-    return (
+    const createWithValue = (
         <>
             <div className={form}>
                 <label htmlFor={name} className="label">{title}</label>
-                <input type="checkbox" className="form-control-checkbox" name={name} defaultChecked={defaultChecked} value={value} />
+                <input type="checkbox" className="form-control-checkbox" name={name} value={value} />
             </div>
         </>
+    )
+
+    const editWithoutValue = (
+        <>
+            <div className={form}>
+                <label htmlFor={name} className="label">{title}</label>
+                <input type="checkbox" className="form-control-checkbox" name={name} defaultChecked={defaultChecked} />
+            </div>
+        </>
+    )
+    return (
+        value ? createWithValue : editWithoutValue
     )
 }
 

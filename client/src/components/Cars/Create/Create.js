@@ -1,18 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useAuthContext } from "../../../contexts/AuthContext";
 import *as carService from '../../../services/carService';
 import { carTypes, fuels, transmissions } from '../carConstants';
 import InputFormComponent from "../../Common/InputFormComponent/InputFormComponent";
-import CarDataCheckboxesUpdate from "../CarData";
+import CarDataCheckboxesUpdate from "../CarDataCheckboxesUpdate";
 import CarValidations from "../../Common/Validations/CarValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 import CheckboxFormComponent from "../../Common/CheckboxFormComponent/CheckboxFormComponent";
 
 const Create = () => {
     const { addNotification } = useNotificationContext();
-    const { user } = useAuthContext();
     const navigate = useNavigate();
     const {
         imageChangeHandler,
@@ -32,7 +30,7 @@ const Create = () => {
         e.preventDefault();
         let carData = Object.fromEntries(new FormData(e.currentTarget));
         let updatedCarData = CarDataCheckboxesUpdate(carData);
-        carService.create(updatedCarData, user.accessToken)
+        carService.create(updatedCarData)
             .then(result => {
                 addNotification(result.message, types.success)
                 navigate('/mobile/car/all');

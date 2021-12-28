@@ -4,7 +4,7 @@ import useCarState from "../../../hooks/useCarState";
 import *as carService from '../../../services/carService';
 import InputFormComponent from "../../Common/InputFormComponent/InputFormComponent";
 import { carTypes, fuels, transmissions } from '../carConstants';
-import CarDataCheckboxesUpdate from "../CarData";
+import CarDataCheckboxesUpdate from "../CarDataCheckboxesUpdate";
 import CarValidations from "../../Common/Validations/CarValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 import CheckboxFormComponent from "../../Common/CheckboxFormComponent/CheckboxFormComponent";
