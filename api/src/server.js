@@ -1,5 +1,5 @@
 const express = require('express');
-const { PORT } = require('./constants');
+const { PORT } = require('./config/constants-ports/constants');
 const routes = require('./routes');
 const { initDatabase } = require('./config/databaseConfig');
 const expressConfig = require('./config/expressConfig');
