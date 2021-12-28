@@ -1,23 +1,19 @@
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
 
-import * as carService from '../../services/carService';
-import Car from "./Car/Car";
+import * as carService from '../../../services/carService';
+import Car from "../Car/Car";
 
-const Cars = () => {
-    const { state } = useLocation();
-    const [cars, setCars] = useState(state ? state.cars : []);
+const MySavedTrips = () => {
+    const [cars, setCars] = useState([]);
     useEffect(() => {
-        if (!state) {
-            carService.getAll()
+        carService.getMySavedTrips()
             .then(result => {
                 setCars(result);
             })
             .catch(err => {
                 console.log(err);
             })
-        }
-    }, [state]);
+    }, []);
     return (
         <div>
             <section className="hero-wrap hero-wrap-2" style={{ backgroundImage: "url(/images/bg_3.jpg)" }} data-stellar-background-ratio="0.5">
@@ -33,7 +29,7 @@ const Cars = () => {
                                     Cars <i className="ion-ios-arrow-forward"></i>
                                 </span>
                             </p>
-                            <h1 className="mb-3 bread">Choose Your Car</h1>
+                            <h1 className="mb-3 bread">Your Saved Trips</h1>
                         </div>
                     </div>
                 </div>
@@ -44,14 +40,14 @@ const Cars = () => {
                     {cars.length > 0 ? (
                         <div className="row">
                             {
-                                cars.map((x) => <Car key={x._id} car={x} />)
+                                cars.map((x) => <Car key={x._id + x.dateFrom} car={x} />)
                             }
                         </div>
-                    ) : <p>{state ? "no available cars for this dates" : "no cars"}</p>}
+                    ) : <p>{"no cars"}</p>}
                 </div>
             </section>
         </div>
     );
 }
 
-export default Cars;
+export default MySavedTrips;

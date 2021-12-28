@@ -2,7 +2,14 @@ export const request = async (method, url, data) => {
     let result = null;
 
     if (method === 'GET') {
-        result = fetch(url);
+        result = fetch(url, {
+            method,
+            headers: {
+                'content-type': 'application/json',
+                'X-Authorization': getToken()
+            },
+            body: JSON.stringify()
+        });
     } else {
         result = fetch(url, {
             method,
