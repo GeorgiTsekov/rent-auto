@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
 import * as carService from '../../services/carService';
+import SectionComponent from "../Common/SectionComponent/SectionComponent";
 import Car from "./Car/Car";
 
 const Cars = () => {
@@ -20,24 +21,7 @@ const Cars = () => {
     }, [state]);
     return (
         <div>
-            <section className="hero-wrap hero-wrap-2" style={{ backgroundImage: "url(/images/bg_3.jpg)" }} data-stellar-background-ratio="0.5">
-                <div className="overlay"></div>
-                <div className="container">
-                    <div className="row no-gutters slider-text align-items-end justify-content-start">
-                        <div className="col-md-9">
-                            <p className="breadcrumbs">
-                                <span className="mr-2">
-                                    <a href="/index.html">Home <i className="ion-ios-arrow-forward"></i></a>
-                                </span>
-                                <span>
-                                    Cars <i className="ion-ios-arrow-forward"></i>
-                                </span>
-                            </p>
-                            <h1 className="mb-3 bread">Choose Your Car</h1>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <SectionComponent backgroundImage="/images/image_6.jpg" name="Catalog" title="Choose Car For Your Trip"/>
 
             <section className="ftco-section bg-light">
                 <div className="container">

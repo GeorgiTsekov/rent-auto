@@ -38,6 +38,7 @@ const Header = () => {
                     <ul className="navbar-nav ml-auto">
                         <LinkComponent href="/" title="Home" type="nav" />
                         <LinkComponent href="/about" title="About" type="nav" />
+                        <LinkComponent href="/contacts" title="Contacts" type="nav" />
                         <LinkComponent href="/mobile/car/all" title="Catalog" type="nav" />
                     </ul>
                     {isAuthenticated ? (isAdministrator ? administratorNavigation : userNavigation) : guestNavigation}

@@ -1,19 +1,10 @@
 import React from "react";
+import SectionComponent from "../Common/SectionComponent/SectionComponent";
 
 const About = () => {
     return (
         <div>
-            <section className="hero-wrap hero-wrap-2 js-fullheight" style={{ backgroundImage: "url(/images/bg_3.jpg)" }} data-stellar-background-ratio="0.5">
-                <div className="overlay"></div>
-                <div className="container">
-                    <div className="row no-gutters slider-text js-fullheight align-items-end justify-content-start">
-                        <div className="col-md-9  pb-5">
-                            <p className="breadcrumbs"><span className="mr-2"><a href="/index.html">Home <i className="ion-ios-arrow-forward"></i></a></span> <span>About us <i className="ion-ios-arrow-forward"></i></span></p>
-                            <h1 className="mb-3 bread">About Us</h1>
-                        </div>
-                    </div>
-                </div>
-            </section>
+            <SectionComponent backgroundImage="/images/image_1.jpg" title="About Us" name="About" />
 
             <section className="ftco-section ftco-about">
                 <div className="container">
