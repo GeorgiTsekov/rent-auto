@@ -12,6 +12,15 @@ router.get('/all', async (req, res, next) => {
     }
 });
 
+router.get('/mySavedTrips', auth, async (req, res, next) => {
+    try {
+        const cars = await carService.mySavedTrips(req.user?._id);
+        res.json(cars);
+    } catch (error) {
+        next(error);
+    }
+});
+
 router.post('/available', async (req, res, next) => {
     try {
         const { dateFrom, dateTo } = req.body;

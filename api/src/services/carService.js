@@ -1,6 +1,6 @@
 const Car = require("../models/Car");
 
-exports.getAll = () => Car.find().sort({ createdAt: 'desc'});
+exports.getAll = () => Car.find().sort({ createdAt: 'desc' });
 
 exports.getAvailable = async (data) => {
     const from = data.dateFrom;
@@ -44,6 +44,25 @@ exports.getAvailable = async (data) => {
             }
         }
     });
+
+    return result;
+}
+
+exports.mySavedTrips = async (userId) => {
+    const cars = await this.getAll();
+
+    const result = [];
+    cars.map(car => {
+        car.tenants.map(t => {
+            if (t.tenantId.toJSON() == userId.toJSON()) {
+                const dateFrom = t.dateFrom.toJSON().slice(0, 10);
+                const dateTo = t.dateTo.toJSON().slice(0, 10);
+                result.push({_id: car._id, image: car.image, pickUpLocation: t.pickUpLocation, dropOffLocation: t.dropOffLocation, model: car.model, make: car.make, dateFrom, dateTo});
+            }
+        });
+    });
+
+    // const filtredCars = cars.filter(car => car.tenants.find(t => t.tenantId.toJSON() == userId.toJSON()));
 
     return result;
 }
