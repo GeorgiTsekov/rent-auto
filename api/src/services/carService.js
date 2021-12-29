@@ -48,6 +48,21 @@ exports.getAvailable = async (data) => {
     return result;
 }
 
+exports.allSavedTrips = async () => {
+    const cars = await this.getAll();
+
+    const result = [];
+    cars.map(car => {
+        car.tenants.map(t => {
+            const dateFrom = t.dateFrom.toJSON().slice(0, 10);
+            const dateTo = t.dateTo.toJSON().slice(0, 10);
+            result.push({ _id: car._id, image: car.image, tripId: t._id, pickUpLocation: t.pickUpLocation, dropOffLocation: t.dropOffLocation, model: car.model, make: car.make, dateFrom, dateTo });
+        });
+    });
+
+    return result;
+}
+
 exports.mySavedTrips = async (userId) => {
     const cars = await this.getAll();
 
@@ -57,7 +72,7 @@ exports.mySavedTrips = async (userId) => {
             if (t.tenantId.toJSON() == userId.toJSON()) {
                 const dateFrom = t.dateFrom.toJSON().slice(0, 10);
                 const dateTo = t.dateTo.toJSON().slice(0, 10);
-                result.push({_id: car._id, image: car.image, pickUpLocation: t.pickUpLocation, dropOffLocation: t.dropOffLocation, model: car.model, make: car.make, dateFrom, dateTo});
+                result.push({ _id: car._id, image: car.image, pickUpLocation: t.pickUpLocation, dropOffLocation: t.dropOffLocation, model: car.model, make: car.make, dateFrom, dateTo });
             }
         });
     });
@@ -139,6 +154,17 @@ exports.addTenant = async (carId, userId, data) => {
 
     car.tenants.push(newTenant);
 
+    return car.save();
+}
+
+exports.deleteTrip = async (carId, tripId) => {
+    const car = await this.getOne(carId);
+
+    const carTenants = await car.tenants.filter(t => t._id.toJSON() !== tripId);
+    car.tenants = [];
+    carTenants.map(tenant => {
+        car.tenants.push(tenant)
+    });
     return car.save();
 }
 

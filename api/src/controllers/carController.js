@@ -1,5 +1,6 @@
 const router = require('express').Router();
 
+const { ADMIN_USER_EMAIL } = require('../config/constants-ports/constants')
 const carService = require('../services/carService');
 const { auth } = require('../middlewares/authMiddleware');
 
@@ -7,6 +8,35 @@ router.get('/all', async (req, res, next) => {
     try {
         const cars = await carService.getAll();
         res.json(cars);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.get('/allSavedTrips', auth, async (req, res, next) => {
+    try {
+        if (req.user?.email != ADMIN_USER_EMAIL) {
+            throw { message: 'You are not authorized to see all trips!' }
+        }
+        const cars = await carService.allSavedTrips(req.user?._id);
+        res.json(cars);
+    } catch (error) {
+        next(error);
+    }
+});
+
+router.delete('/:carId/:tripId/delete', auth, async (req, res, next) => {
+    try {
+        const car = await carService.getOne(req.params.carId);
+        if (car === null) {
+            throw { message: 'This car is not exist in data base!' }
+        }
+        if (req.user?.email != ADMIN_USER_EMAIL) {
+            throw { message: 'You are not authorized to delete this trip!' }
+        }
+
+        const updatedCar = await carService.deleteTrip(req.params.carId, req.params.tripId);
+        res.status(200).json({ message: "Trip is successfully deleted" });
     } catch (error) {
         next(error);
     }
