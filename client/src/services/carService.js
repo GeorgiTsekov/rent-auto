@@ -8,6 +8,8 @@ export const getMySavedTrips = () => request.get(`${baseUrl}/mySavedTrips`);
 
 export const getAllSavedTrips = () => request.get(`${baseUrl}/allSavedTrips`);
 
+export const deleteSavedTrip = (carId, tripId) => request.deleteCar(`${baseUrl}/${carId}/${tripId}/delete`);
+
 export const available = async (carData) => request.post(`${baseUrl}/available`, carData);
 
 export const getOne = async (carId) => request.get(`${baseUrl}/${carId}`);
@@ -21,4 +23,3 @@ export const rent = async (carData, carId) => request.patch(`${baseUrl}/${carId}
 export const edit = async (carData, carId) => request.patch(`${baseUrl}/${carId}/edit`, carData);
 
 export const deleteCar = async (carId) => request.deleteCar(`${baseUrl}/${carId}/delete`);
- 

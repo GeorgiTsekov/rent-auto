@@ -1,0 +1,1 @@
+exports.ADMIN_EMAIL = 'Admin66@gmail.com';
