@@ -1,6 +1,6 @@
 const router = require('express').Router();
 
-const { ADMIN_USER_EMAIL } = require('../config/constants-ports/constants')
+const { ADMIN_USER_EMAIL } = require('../config/constants')
 const carService = require('../services/carService');
 const { auth } = require('../middlewares/authMiddleware');
 

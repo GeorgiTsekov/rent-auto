@@ -1,7 +1,7 @@
 const { jwtSign } = require('../utils/jwt');
 const jwt = require('jsonwebtoken');
 const User = require('../models/User');
-const { JWT_SECRET } = require('../config/constants-ports/constants');
+const { JWT_SECRET } = require('../config/constants');
 
 exports.register = ({ name, email, password, rePassword }) => {
     if (password !== rePassword) {
