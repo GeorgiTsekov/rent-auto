@@ -20,6 +20,7 @@ import PrivateRoute from './components/Common/GuardedRoutes/PrivateRoute';
 import NotPrivedRoute from './components/Common/GuardedRoutes/NotPrivedRoute';
 import SearchAvailable from './components/Cars/SearchAvailable/SearchAvailable';
 import MySavedTrips from './components/Cars/MySavedTrips/MySavedTrips';
+import AllSavedTrips from './components/Cars/AllSavedTrips/AllSavedTrips';
 
 function App() {
   return (
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/auth/logout" element={<Logout />} />
               </Route>
               <Route element={<AdminGuardedRoute />}>
+              <Route path="/mobile/car/allSavedTrips" element={<AllSavedTrips />} />
                 <Route path="/mobile/car/create" element={<Create />} />
                 <Route path="/mobile/car/:carId/edit" element={<Edit />} />
               </Route>

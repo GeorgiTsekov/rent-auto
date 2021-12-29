@@ -6,6 +6,8 @@ export const getAll = () => request.get(`${baseUrl}/all`);
 
 export const getMySavedTrips = () => request.get(`${baseUrl}/mySavedTrips`);
 
+export const getAllSavedTrips = () => request.get(`${baseUrl}/allSavedTrips`);
+
 export const available = async (carData) => request.post(`${baseUrl}/available`, carData);
 
 export const getOne = async (carId) => request.get(`${baseUrl}/${carId}`);

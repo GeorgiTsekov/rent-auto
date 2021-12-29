@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 
 import *as carService from '../../../services/carService';
 import InputFormComponent from "../../Common/InputFormComponent/InputFormComponent";
-import DataValidations from "../../Common/Validations/DataValidations";
+import DateValidations from "../../Common/Validations/DateValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 
 const SearchAvailable = () => {
@@ -12,7 +12,7 @@ const SearchAvailable = () => {
         dateFromChangeHandler,
         dateToChangeHandler,
         errors
-    } = DataValidations();
+    } = DateValidations();
 
     const getAvailableCars = (e) => {
         e.preventDefault();
@@ -49,7 +49,7 @@ const SearchAvailable = () => {
                             />
                             <InputFormComponent
                                 form="form-group"
-                                title="Pick-up date"
+                                title="Drop-off date"
                                 type="text"
                                 name="dateTo"
                                 placeholder="2022-01-01"

@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-const DataValidations = () => {
+const DateValidations = () => {
     const [errors, setErrors] = useState(
         {
             dateFrom: false,
@@ -48,4 +48,4 @@ const DataValidations = () => {
     }
 }
 
-export default DataValidations;
+export default DateValidations;

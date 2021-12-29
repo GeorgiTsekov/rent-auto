@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import *as carService from '../../../services/carService';
 import InputFormComponent from "../../Common/InputFormComponent/InputFormComponent";
 import { towns } from '../carConstants';
-import DataValidations from "../../Common/Validations/DataValidations";
+import DateValidations from "../../Common/Validations/DateValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 
 const RentACar = () => {
@@ -14,7 +14,7 @@ const RentACar = () => {
         dateFromChangeHandler,
         dateToChangeHandler,
         errors
-    } = DataValidations();
+    } = DateValidations();
 
     const onRentACar = (e) => {
         e.preventDefault();
@@ -62,7 +62,7 @@ const RentACar = () => {
                             />
                             <InputFormComponent
                                 form="form-group"
-                                title="Pick-up date"
+                                title="Drop-off date"
                                 type="text"
                                 name="dateTo"
                                 placeholder="2022-01-01"

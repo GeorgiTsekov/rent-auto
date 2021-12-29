@@ -20,7 +20,7 @@ const Header = () => {
 
     let administratorNavigation = (
         <ul className="navbar-nav ml-auto">
-            <LinkComponent href="/mobile/car/mySavedTrips" title={`Welcome, ${user.name}`} type="nav" />
+            <LinkComponent href="/mobile/car/allSavedTrips" title={`Welcome, ${user.name}`} type="nav" />
             <LinkComponent href="/mobile/car/create" title="Create a Car" type="nav" />
             <LinkComponent href="/auth/logout" title="Logout" type="nav" />
         </ul>
