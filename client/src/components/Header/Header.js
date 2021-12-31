@@ -1,5 +1,6 @@
 import { useAuthContext } from "../../contexts/AuthContext";
 import LinkComponent from "../Common/LinkComponent/LinkComponent";
+import './Header.css';
 
 const Header = () => {
     const { user, isAdministrator, isAuthenticated } = useAuthContext();
@@ -27,14 +28,14 @@ const Header = () => {
     )
 
     return (
-        <nav className="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <nav className="navbar navbar-expand-lg ftco-navbar-light">
             <div className="container">
                 <a className="navbar-brand" href="/">Auto<span>rent</span></a>
-                <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                     <span className="oi oi-menu"></span> Menu
-                </button>
+                </button> */}
 
-                <div className="collapse navbar-collapse" id="ftco-nav">
+                <div className=" navbar-collapse" id="ftco-nav">
                     <ul className="navbar-nav ml-auto">
                         <LinkComponent href="/" title="Home" type="nav" />
                         <LinkComponent href="/about" title="About" type="nav" />

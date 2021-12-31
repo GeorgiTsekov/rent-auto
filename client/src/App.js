@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 
+import './App.css';
 import { AuthProvider } from './contexts/AuthContext'
 import Contacts from './components/Contacts/Contacts';
 import About from './components/About/About';
