@@ -1,5 +1,8 @@
 {
     "version": 2,
+    "github": {
+        "silent": true
+    },
     "builds": [
         {
             "src": "./index.js",
@@ -10,7 +13,9 @@
         {
             "src": "/users",
             "dest": "/index.js",
-            "methods": ["GET"]
+            "methods": [
+                "GET"
+            ]
         }
     ]
 }
