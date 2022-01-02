@@ -110,6 +110,7 @@ const Details = () => {
                     <div className="row">
                         <CarDetailsComponent title="Fuel" icon="&#9981;" detail={car.fuel} />
                         <CarDetailsComponent title="Doors" icon="&#128682;" detail={car.doors} />
+                        <CarDetailsComponent title="Price" icon="&#36;" detail={car.price} />
                         <CarDetailsComponent title="Likes" icon="&#10084;" detail={car.likes?.length} />
                     </div>
                     <div className="row">

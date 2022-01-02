@@ -8,7 +8,7 @@ const Car = ({
         <>
             <div className="d-flex mb-3">
                 <span className="cat">{car.type}</span>
-                <p className="price ml-auto">${car.price} <span>/day</span></p>
+                <p className="price ml-auto">{car.price}$<span>/day</span></p>
             </div>
             <p className="d-flex mb-0 d-block">
                 <Link to={`/mobile/car/${car._id}/addTenant`} className="btn btn-primary py-2 mr-1">Book now</Link>
@@ -19,6 +19,13 @@ const Car = ({
 
     const carDataForMe = (
         <>
+            <div className="d-flex mb-3">
+                <p className="price ml-auto">{car.savedDays} <span>/saved days</span></p>
+            </div>
+            <div className="d-flex mb-3">
+                <p className="price ml-auto">{car.price}$ <span>/day</span></p>
+                <p className="price ml-auto">{car.fullPrice}$ <span>/full price</span></p>
+            </div>
             <div className="d-flex mb-3">
                 <p className="price ml-auto">From: {car.pickUpLocation} </p>
                 <p className="price ml-auto">  {car.dateFrom}</p>
@@ -40,7 +47,7 @@ const Car = ({
                 </div>
                 <div className="text">
                     <h2 className="mb-0"><Link to={`/details/${car._id}`}>{car.make} {car.model}</Link></h2>
-                    {car.price ? carDataForAll : carDataForMe}
+                    {car.doors ? carDataForAll : carDataForMe}
                 </div>
             </div>
         </div>

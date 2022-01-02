@@ -44,6 +44,13 @@ const CarTrip = ({
                 <div className="text">
                     <h2 className="mb-0"><Link to={`/details/${car._id}`}>{car.make} {car.model}</Link></h2>
                     <div className="d-flex mb-3">
+                        <p className="price ml-auto">{car.savedDays} <span>/saved days</span></p>
+                    </div>
+                    <div className="d-flex mb-3">
+                        <p className="price ml-auto">{car.price}$ <span>/day</span></p>
+                        <p className="price ml-auto">{car.fullPrice}$ <span>/full price</span></p>
+                    </div>
+                    <div className="d-flex mb-3">
                         <p className="price ml-auto">From: {car.pickUpLocation} </p>
                         <p className="price ml-auto">  {car.dateFrom}</p>
                     </div>
