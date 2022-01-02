@@ -1,6 +1,7 @@
+import { BASE_URL } from "../constants";
 import *as request from "./requester";
 
-const baseUrl = 'http://localhost:5000/auth';
+const baseUrl = `${BASE_URL}/auth`;
 
 export const login = async (authData) => request.post(`${baseUrl}/login`, authData);
 
