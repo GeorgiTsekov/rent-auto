@@ -1,6 +1,7 @@
+import { BASE_URL } from '../constants';
 import *as request from './requester';
 
-const baseUrl = 'http://localhost:5000/mobile/car';
+const baseUrl = `${BASE_URL}/mobile/car`;
 
 export const getAll = () => request.get(`${baseUrl}/all`);
 
