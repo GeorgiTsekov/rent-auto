@@ -4,7 +4,7 @@
  * Copyright 2011-2019 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
-:root {
+ :root {
   --blue: #007bff;
   --indigo: #6610f2;
   --purple: #6f42c1;
@@ -4523,7 +4523,7 @@ input[type="button"].btn-block {
   }
 }
 
-/* .nav {
+.nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4532,7 +4532,7 @@ input[type="button"].btn-block {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-} */
+}
 
 .nav-link {
   display: block;
@@ -4620,7 +4620,7 @@ input[type="button"].btn-block {
   display: block;
 }
 
-/* .navbar {
+.navbar {
   position: relative;
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4634,9 +4634,9 @@ input[type="button"].btn-block {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 0.5rem 1rem;
-} */
+}
 
-/* .navbar>.container,
+.navbar>.container,
 .navbar>.container-fluid {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -4649,9 +4649,9 @@ input[type="button"].btn-block {
   -webkit-box-pack: justify;
   -ms-flex-pack: justify;
   justify-content: space-between;
-} */
+}
 
-/* .navbar-brand {
+.navbar-brand {
   display: inline-block;
   padding-top: 0.3125rem;
   padding-bottom: 0.3125rem;
@@ -4659,13 +4659,13 @@ input[type="button"].btn-block {
   font-size: 1.25rem;
   line-height: inherit;
   white-space: nowrap;
-} */
+}
 
-/* .navbar-brand:hover, .navbar-brand:focus {
+.navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
-} */
+}
 
-/* .navbar-nav {
+.navbar-nav {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -4676,9 +4676,9 @@ input[type="button"].btn-block {
   padding-left: 0;
   margin-bottom: 0;
   list-style: none;
-} */
+}
 
-/* .navbar-nav .nav-link {
+.navbar-nav .nav-link {
   padding-right: 0;
   padding-left: 0;
 }
@@ -4686,7 +4686,7 @@ input[type="button"].btn-block {
 .navbar-nav .dropdown-menu {
   position: static;
   float: none;
-} */
+}
 
 .navbar-text {
   display: inline-block;
@@ -4694,7 +4694,7 @@ input[type="button"].btn-block {
   padding-bottom: 0.5rem;
 }
 
-/* .navbar-collapse {
+.navbar-collapse {
   -ms-flex-preferred-size: 100%;
   flex-basis: 100%;
   -webkit-box-flex: 1;
@@ -4703,7 +4703,7 @@ input[type="button"].btn-block {
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
-} */
+}
 
 .navbar-toggler {
   padding: 0.25rem 0.75rem;
@@ -4848,7 +4848,7 @@ input[type="button"].btn-block {
 }
 
 @media (min-width: 992px) {
-  /* .navbar-expand-lg {
+  .navbar-expand-lg {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-flow: row nowrap;
@@ -4856,20 +4856,20 @@ input[type="button"].btn-block {
     -webkit-box-pack: start;
     -ms-flex-pack: start;
     justify-content: flex-start;
-  } */
+  }
 
-  .navbar-nav {
+  .navbar-expand-lg .navbar-nav {
     -webkit-box-orient: horizontal;
     -webkit-box-direction: normal;
     -ms-flex-direction: row;
     flex-direction: row;
   }
 
- .navbar-nav .dropdown-menu {
+  .navbar-expand-lg .navbar-nav .dropdown-menu {
     position: absolute;
   }
 
-  .navbar-nav .nav-link {
+  .navbar-expand-lg .navbar-nav .nav-link {
     padding-right: 0.5rem;
     padding-left: 0.5rem;
   }
@@ -4880,7 +4880,7 @@ input[type="button"].btn-block {
     flex-wrap: nowrap;
   }
 
-  .navbar-collapse {
+  .navbar-expand-lg .navbar-collapse {
     display: -webkit-box !important;
     display: -ms-flexbox !important;
     display: flex !important;
@@ -4888,7 +4888,7 @@ input[type="button"].btn-block {
     flex-basis: auto;
   }
 
-  .navbar-toggler {
+  .navbar-expand-lg .navbar-toggler {
     display: none;
   }
 }
@@ -9345,6 +9345,7 @@ button.bg-dark:focus {
   margin-bottom: auto !important;
 }
 
+.ml-auto,
 .mx-auto {
   margin-left: auto !important;
 }

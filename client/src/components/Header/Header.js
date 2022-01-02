@@ -1,6 +1,5 @@
 import { useAuthContext } from "../../contexts/AuthContext";
 import LinkComponent from "../Common/LinkComponent/LinkComponent";
-import './Header.css';
 
 const Header = () => {
     const { user, isAdministrator, isAuthenticated } = useAuthContext();
@@ -31,10 +30,6 @@ const Header = () => {
         <nav className="navbar navbar-expand-lg ftco-navbar-light">
             <div className="container">
                 <a className="navbar-brand" href="/">Auto<span>rent</span></a>
-                {/* <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="oi oi-menu"></span> Menu
-                </button> */}
-
                 <div className=" navbar-collapse" id="ftco-nav">
                     <ul className="navbar-nav ml-auto">
                         <LinkComponent href="/" title="Home" type="nav" />
