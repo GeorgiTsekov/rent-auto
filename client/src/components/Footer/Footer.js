@@ -46,6 +46,7 @@ const Footer = () => {
                                     <LinkComponent href="#" title="Triaditsa 5B, Sofia, Bulgaria" type="nav" />
                                     <LinkComponent href="#" title="359 884 35 21 37" type="nav" />
                                     <LinkComponent href="#" title="rent_mobile93@gmail.com" type="nav" />
+                                    <a className="nav-link" href="https://github.com/GeorgiTsekov/rent-auto" >Open Source Project In Github</a>
                                 </ul>
                             </div>
                         </div>
