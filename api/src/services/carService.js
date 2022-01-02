@@ -56,7 +56,10 @@ exports.allSavedTrips = async () => {
         car.tenants.map(t => {
             const dateFrom = t.dateFrom.toJSON().slice(0, 10);
             const dateTo = t.dateTo.toJSON().slice(0, 10);
-            result.push({ _id: car._id, image: car.image, tripId: t._id, pickUpLocation: t.pickUpLocation, dropOffLocation: t.dropOffLocation, model: car.model, make: car.make, dateFrom, dateTo });
+            const diffDays = Math.ceil((Math.abs(t.dateFrom - t.dateTo)) / (1000 * 60 * 60 * 24));
+            const savedDays = diffDays + 1;
+            const fullPrice = savedDays * car.price;
+            result.push({ _id: car._id, image: car.image, price: car.price, savedDays, fullPrice, tripId: t._id, pickUpLocation: t.pickUpLocation, dropOffLocation: t.dropOffLocation, model: car.model, make: car.make, dateFrom, dateTo });
         });
     });
 
@@ -72,7 +75,10 @@ exports.mySavedTrips = async (userId) => {
             if (t.tenantId.toJSON() == userId.toJSON()) {
                 const dateFrom = t.dateFrom.toJSON().slice(0, 10);
                 const dateTo = t.dateTo.toJSON().slice(0, 10);
-                result.push({ _id: car._id, image: car.image, pickUpLocation: t.pickUpLocation, dropOffLocation: t.dropOffLocation, model: car.model, make: car.make, dateFrom, dateTo });
+                const diffDays = Math.ceil((Math.abs(t.dateFrom - t.dateTo)) / (1000 * 60 * 60 * 24));
+                const savedDays = diffDays + 1;
+                const fullPrice = savedDays * car.price;
+                result.push({ _id: car._id, image: car.image, savedDays, fullPrice, price: car.price, pickUpLocation: t.pickUpLocation, dropOffLocation: t.dropOffLocation, model: car.model, make: car.make, dateFrom, dateTo });
             }
         });
     });
