@@ -1,20 +1,18 @@
 import { useNavigate, useParams } from "react-router-dom";
+import React, { useState } from "react";
+import ReactDatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 import *as carService from '../../../services/carService';
-import InputFormComponent from "../../Common/InputFormComponent/InputFormComponent";
 import { towns } from '../carConstants';
-import DateValidations from "../../Common/Validations/DateValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
 
 const RentACar = () => {
     const { addNotification } = useNotificationContext();
     const { carId } = useParams();
+    const [dateTo, setDateFrom] = useState(null);
+    const [dateFrom, setDateTo] = useState(null);
     const navigate = useNavigate();
-    const {
-        dateFromChangeHandler,
-        dateToChangeHandler,
-        errors
-    } = DateValidations();
 
     const onRentACar = (e) => {
         e.preventDefault();
@@ -51,24 +49,32 @@ const RentACar = () => {
                             </select>
                         </div>
                         <div className="d-flex">
-                            <InputFormComponent
-                                form="form-group"
-                                title="Pick-up date"
-                                type="text"
-                                name="dateFrom"
-                                placeholder="2021-12-30"
-                                onBlur={dateFromChangeHandler}
-                                errors={errors.dateFrom}
-                            />
-                            <InputFormComponent
-                                form="form-group"
-                                title="Drop-off date"
-                                type="text"
-                                name="dateTo"
-                                placeholder="2022-01-01"
-                                onBlur={dateToChangeHandler}
-                                errors={errors.dateTo}
-                            />
+                            <div className="form-group">
+                                <label htmlFor="dateFrom" className="label">DateFrom</label>
+                                <ReactDatePicker
+                                    className="form-control"
+                                    selected={dateFrom}
+                                    onChange={date => setDateTo(date)}
+                                    name="dateFrom"
+                                    dateFormat='yyyy-MM-dd'
+                                    minDate={new Date()}
+                                    placeholderText="2022-01-01"
+                                    isClearable
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="dateFrom" className="label">DateTo</label>
+                                <ReactDatePicker
+                                    className="form-control"
+                                    selected={dateTo}
+                                    onChange={date => setDateFrom(date)}
+                                    name="dateTo"
+                                    dateFormat='yyyy-MM-dd'
+                                    minDate={new Date()}
+                                    placeholderText="2022-01-01"
+                                    isClearable
+                                />
+                            </div>
                         </div>
                         <div className="form-group">
                             <input type="submit" value="Rent A Car Now" className="btn btn-secondary py-3 px-4" />

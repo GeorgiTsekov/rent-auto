@@ -1,28 +1,27 @@
 import { useNavigate } from "react-router-dom";
-
+import "react-datepicker/dist/react-datepicker.css";
 import *as carService from '../../../services/carService';
-import InputFormComponent from "../../Common/InputFormComponent/InputFormComponent";
-import DateValidations from "../../Common/Validations/DateValidations";
 import { useNotificationContext, types } from "../../../contexts/NotificationContext";
+import React, { useState } from "react";
+import ReactDatePicker from "react-datepicker";
 
 const SearchAvailable = () => {
+    const [dateTo, setDateFrom] = useState(null);
+    const [dateFrom, setDateTo] = useState(null);
     const { addNotification } = useNotificationContext();
     const navigate = useNavigate();
-    const {
-        dateFromChangeHandler,
-        dateToChangeHandler,
-        errors
-    } = DateValidations();
 
     const getAvailableCars = (e) => {
         e.preventDefault();
-        let carData = Object.fromEntries(new FormData(e.currentTarget));
+        let formData = new FormData(e.currentTarget);
 
-        carService.available(carData)
+        let dateFrom = formData.get('dateFrom');
+        let dateTo = formData.get('dateTo');
+
+        carService.available({ dateFrom, dateTo })
             .then((result) => {
                 console.log(result)
                 navigate(`/mobile/car/all`, { state: { cars: result } });
-                addNotification(result.message, types.success)
             })
             .catch(err => {
                 console.log(err);
@@ -38,24 +37,32 @@ const SearchAvailable = () => {
                     <form className="request-form bg-primary" onSubmit={getAvailableCars} method="POST">
                         <h2>Search free cars</h2>
                         <div className="d-flex">
-                            <InputFormComponent
-                                form="form-group"
-                                title="Pick-up date"
-                                type="text"
-                                name="dateFrom"
-                                placeholder="2021-12-30"
-                                onBlur={dateFromChangeHandler}
-                                errors={errors.dateFrom}
-                            />
-                            <InputFormComponent
-                                form="form-group"
-                                title="Drop-off date"
-                                type="text"
-                                name="dateTo"
-                                placeholder="2022-01-01"
-                                onBlur={dateToChangeHandler}
-                                errors={errors.dateTo}
-                            />
+                            <div className="form-group">
+                                <label htmlFor="dateFrom" className="label">DateFrom</label>
+                                <ReactDatePicker
+                                    className="form-control"
+                                    selected={dateFrom}
+                                    onChange={date => setDateTo(date)}
+                                    name="dateFrom"
+                                    dateFormat='yyyy-MM-dd'
+                                    minDate={new Date()}
+                                    placeholderText="2022-01-01"
+                                    isClearable
+                                />
+                            </div>
+                            <div className="form-group">
+                                <label htmlFor="dateFrom" className="label">DateTo</label>
+                                <ReactDatePicker
+                                    className="form-control"
+                                    selected={dateTo}
+                                    onChange={date => setDateFrom(date)}
+                                    name="dateTo"
+                                    dateFormat='yyyy-MM-dd'
+                                    minDate={new Date()}
+                                    placeholderText="2022-01-01"
+                                    isClearable
+                                />
+                            </div>
                         </div>
                         <div className="form-group">
                             <input type="submit" value="Search All Free Cars Now" className="btn btn-secondary py-3 px-4" />
